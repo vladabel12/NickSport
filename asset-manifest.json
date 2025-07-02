@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/NickSport/static/css/main.d83ee613.css",
-    "main.js": "/NickSport/static/js/main.f819bc61.js",
+    "main.js": "/NickSport/static/js/main.3f1dbab9.js",
     "static/media/logo.jpg": "/NickSport/static/media/logo.95405d6d61058f6f0664.jpg",
     "index.html": "/NickSport/index.html",
     "main.d83ee613.css.map": "/NickSport/static/css/main.d83ee613.css.map",
-    "main.f819bc61.js.map": "/NickSport/static/js/main.f819bc61.js.map"
+    "main.3f1dbab9.js.map": "/NickSport/static/js/main.3f1dbab9.js.map"
   },
   "entrypoints": [
     "static/css/main.d83ee613.css",
-    "static/js/main.f819bc61.js"
+    "static/js/main.3f1dbab9.js"
   ]
 }
