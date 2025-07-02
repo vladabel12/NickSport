@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import './styles/header.css';
+@import './styles/footer.css';
+@import './styles/item.css';
+@import './styles/order.css';
+@import './styles/categories.css';
+@import './styles/full-item.css';
+@import './styles/adaptation.css';
+@import './styles/pagination.css';
+@import './styles/about_us.css';
+@import './styles/contacts.css';
+@import './styles/our-location.css';
+:root {
+  font-size: 0.0625vw; /* 1rem = 1px на екрані 1600px (1600*0.0625=100) */
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 0.17vw; 
+  }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+ }
+
+ body {
+    font-size: 16rem;
+    background: #fff;
+    color: #222;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+ }
+
+ .wrapper {
+    width: 100%;
+    margin: 50rem auto;
+    padding: 0 50rem;
+    box-sizing: border-box;
+ }
+main {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40rem;
+}

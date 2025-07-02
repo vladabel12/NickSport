@@ -1,0 +1,132 @@
+.contacts{
+  display: flex;
+  justify-content: space-between;
+  padding: 50rem 0;
+  gap: 50rem;
+}
+.contacts_presentation {
+  width: 45%;
+  height: 600rem;
+  background-size: cover;
+  position: relative;
+  padding: 30rem;
+  background-color: rgb(126, 137, 137);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.contacts_content {
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+
+.contacts_content h2 {
+  margin: 0 0 10rem 0;
+  font-size: 40rem;
+  color: white;
+}
+.contacts_desc {
+  font-size: 20rem;
+  margin: 0 0 80rem 0;
+  color: white;
+}
+
+.contacts_button {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 18rem;
+    transition: transform 0.3s;
+    margin-bottom: 50rem;
+    
+}
+
+.contacts_button:hover {
+  transform: scale(1.07);
+}
+.contacts_filler {
+  display: flex;
+  justify-content: start;
+  gap: 40rem;
+}
+.contacts_media{
+  display: flex;
+  justify-content: left;
+  gap: 30rem;
+  margin-bottom: 30rem;
+}
+.instagram, .facebook, .viber{
+  color: white;
+  transition: all 400ms ease;
+}
+.instagram:hover, .facebook:hover, .viber:hover{
+  color: silver;
+  transform: scale(1.2);
+}
+.contacts_form{
+  width: 50%;
+  margin-top: 50rem;
+  display: flex;
+  flex-direction: column;
+  gap: 40rem;
+}
+.form_row {
+  display: flex;
+  gap: 40rem;
+  justify-content: space-between;
+}
+
+.form_field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8rem;
+  font-size: 16rem;
+  font-weight: 500;
+  color: #333;
+}
+
+input, textarea {
+  border: none;
+  border-bottom: 2px solid #aaa;
+  outline: none;
+  padding: 6rem 0;
+  font-size: 16rem;
+  background: transparent;
+  transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus, label:focus {
+  border-bottom: 2px solid #609d50;
+}
+
+.form_full-width {
+  display: flex;
+  flex-direction: column;
+}
+
+.send-button {
+  align-self: flex-end;
+  padding: 12px 24px;
+  background-color: #609d50;
+  border: none;
+  border-radius: rem;
+  color: white;
+  font-size: 16rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.send-button:hover {
+  background-color: #dc3d3d;
+}
+.form_message{
+  margin: 50rem 0 30rem 0;
+}

@@ -1,0 +1,52 @@
+.shop-cart .order-item{
+    width: 100%;
+    float: left;
+    margin-bottom: 20rem;
+}
+.shop-cart .order-item img{
+    width: 70rem;
+    float: left;
+    margin-right: 20rem;
+}
+.shop-cart .order-item h2{
+    font-size: 20rem;
+    margin-bottom: 10rem;
+}
+.shop-cart .order-item p{
+    color: #797979;
+    font-weight: 600;
+}
+.shop-cart .empty h2{
+    font-size: 20rem;
+    margin-bottom: 20rem;
+}
+.order-item h2::after {
+  color: #666;
+  font-size: 0.8em;
+}
+
+.total-price {
+  color: #dc3d3d;
+  font-weight: bold;
+}
+
+.cart-counter {
+  background: #dc3d3d;
+  color: white;
+  border-radius: 50%;
+  padding: 0 5px;
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+.shop-cart .order-item .delete-icon {
+  color: #ca5252;
+  float: right;
+  position: relative;
+  top: -25rem;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+.shop-cart .order-item .delete-icon:hover {
+  color: #d83030;
+  transform: scale(1.5);
+}

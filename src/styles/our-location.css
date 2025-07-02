@@ -1,0 +1,44 @@
+.our_location_page{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20rem;
+}
+.our_location_images{
+    margin: 50rem 0 50rem 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20rem;
+}
+.our_location_image{
+    width: 400rem;
+}
+.our_location_main_title{
+    font-weight: 700;
+    font-size: 50rem;
+    margin-bottom: 50rem;
+}
+.our_location_main_desc{
+    font-weight: 400;
+    font-size: 20rem;
+    margin-bottom: 50rem;
+    color: #676565;
+}
+.our_location_main_button{
+    display: inline-block;
+    font-size: 25rem;
+    font-weight: 500;
+    padding: 15rem 25rem;
+    border-radius: 25rem;
+    color: #fff;
+    background-color: #609d50;
+    border: 3rem solid transparent;
+    transition: all 600ms ease;
+}
+.our_location_main_button:hover{
+    border-color: #486940;
+    transform: scale(1.1);
+}

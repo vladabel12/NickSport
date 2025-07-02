@@ -1,0 +1,37 @@
+.pagination{
+    text-align: center;
+    margin: 10rem 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.pagination_button{
+    background: #f2f2f2;
+    border-radius: 50rem;
+    padding: 5rem 15rem;
+    margin-bottom: 25rem;
+    margin-right: 7rem;
+    cursor: pointer;
+    border: 1rem solid transparent;
+    transition: all 400ms ease;
+    font-size: 15rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+.pagination_button:hover{
+    border-color: silver;
+    transform: scale(1.1);
+}
+.pagination_button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    border-color: transparent;
+}
+.pagination_button:disabled:hover {
+    transform: none;
+    border-color: transparent;
+}
+
+.pagination_page_of{
+    margin: 0 10rem;
+    font-size: 15rem;
+}

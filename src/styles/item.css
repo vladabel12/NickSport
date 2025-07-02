@@ -1,0 +1,96 @@
+.item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300rem;
+    margin-bottom: 50rem;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 20rem;
+    border: 1.5rem solid #d1c7c7;
+    border-radius: 8px;
+    box-shadow: 0 10rem 20rem rgba(0,0,0,0.1);
+}
+.item img, .full-item img{
+    width: 100%;
+    border-radius: 10rem 10rem 0 0;
+    transition: transform 500ms ease;
+    cursor: pointer;
+}
+.item img:hover, .full-item img:hover{
+    transform: scale(1.05);
+}
+.item-bottom {
+    margin-right: 20rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10rem;
+    align-items: center;
+}
+h3{
+    margin: 0 20rem;
+    font-weight: 500;
+}
+h2, .full-item h2, p, .full-item p, b, .full-item b{
+    margin: 2rem 20rem;
+    color: #333;
+}
+b, .full-item b {
+    font-weight: 600;
+    color: #5fa36a;
+}
+.add-to-cart,
+.full-item .add-to-cart{
+  background: #ca5252;
+  width: 40rem;
+  height: 40rem;
+  text-align: center;
+  line-height: 40rem;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 500ms ease;
+}
+.add-to-cart:hover,
+.full-item .add-to-cart:hover{
+    transform: scale(1.3) translateY(-5rem);
+}
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+.quantity-controls input {
+  width: 25rem;
+  height: 25rem;
+  text-align: center;
+  padding: 1rem;
+  border-width: 1px;
+  border-radius: 10rem;
+  font-size: 14rem;
+  border-color: silver;
+}
+
+.quantity-controls button {
+  font-size: 13rem;
+  background: #f2f2f2;
+  border-radius: 50rem;
+  padding: 2rem 10rem;
+  cursor: pointer;
+  appearance: textfield;          
+  -webkit-appearance: none;        
+  -moz-appearance: textfield;
+  border: 1rem solid transparent;
+  transition: all 400ms ease;
+}
+.quantity-controls button:hover{
+    border-color: silver;
+    transform: scale(1.1);
+}
+.quantity-controls input::-webkit-inner-spin-button,
+.quantity-controls input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
