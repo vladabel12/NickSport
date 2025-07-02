@@ -9,8 +9,6 @@ import ShowFullItem from "./components/ShowFullItem";
 import Contacts from "./components/Contacts";
 import OurLocation from "./components/OurLocation";
 
-import volleyballImg from './img/voleyball.jpg';
-
 
 function App() {
   const [orders, setOrders] = useState([]);
@@ -24,7 +22,7 @@ function App() {
     {
       id: 1,
       title: 'Volleyball beach ball',
-      img: volleyballImg,
+      img: process.env.PUBLIC_URL + '/img/voleyball.jpg',
       desc: 'Beach volleyball. The ball is designed for beach volleyball.',
       full_desc: `
       <h3>Features</h3>
@@ -44,7 +42,7 @@ function App() {
     {
       id: 2,
       title: 'Goalkeeper gloves',
-      img: '/src/img/goalkeeper_gloves.jpg',
+      img: process.env.PUBLIC_URL + '/img/goalkeeper_gloves.jpg',
       desc: 'High-quality goalkeeping gloves with optimal performance',
       full_desc: `
       <h3>Features</h3>
@@ -62,7 +60,7 @@ function App() {
     {
       id: 3,
       title: 'Boxing gloves',
-      img: process.env.PUBLIC_URL + '/boxing_gloves.jpg',
+      img: process.env.PUBLIC_URL + '/img/boxing_gloves.jpg',
       desc: 'This is a high-quality model for athletes of all levels, boys and girls, and even children. Gloves are with an Ukrainian flag',
       full_desc: `
       <h3>Features</h3>
@@ -98,7 +96,7 @@ function App() {
     {
       id: 5,
       title: 'Kettlebell competition',
-      img: process.env.PUBLIC_URL + '/kettlebell.jpg',
+      img: process.env.PUBLIC_URL + '/img/kettlebell.jpg',
       desc: 'Professional kettlebell from the LiveUp brand is made of steel',
       full_desc: `
       <h3>Features</h3>
@@ -117,7 +115,7 @@ function App() {
     {
       id: 6,
       title: 'Belt for powerlifting',
-      img: process.env.PUBLIC_URL + '/belt1.jpg',
+      img: process.env.PUBLIC_URL + '/img/belt1.jpg',
       desc: 'The belt is made of high-quality leather, which makes it flexible',
       full_desc: `
       <h3>Features</h3>
@@ -137,7 +135,7 @@ function App() {
     {
       id: 7,
       title: 'Cleats for athletics',
-      img: process.env.PUBLIC_URL + '/cleats1.jpg',
+      img: process.env.PUBLIC_URL + '/img/cleats1.jpg',
       desc: 'The soft upper material makes these spikes as comfortable as possible for long runs.',
       full_desc: `
       <h3>Features</h3>
@@ -156,7 +154,7 @@ function App() {
     {
       id: 8,
       title: 'Handball ball',
-      img: process.env.PUBLIC_URL + '/handball1.jpg',
+      img: process.env.PUBLIC_URL + '/img/handball1.jpg',
       desc: 'The ball consists of 32 panels. The tire is made of polyurethane.',
       full_desc: `
       <h3>Features</h3>
@@ -176,7 +174,7 @@ function App() {
     {
       id: 9,
       title: 'Goalkeeper gloves',
-      img: process.env.PUBLIC_URL + '/goalkeeper_gloves2.jpg',
+      img: process.env.PUBLIC_URL + '/img/goalkeeper_gloves2.jpg',
       desc: 'Gloves are made of high-strength and wear-resistant materials',
       full_desc: `
       <h3>Features</h3>
@@ -194,7 +192,7 @@ function App() {
     {
       id: 10,
       title: 'Roller sneakers',
-      img: process.env.PUBLIC_URL + '/sneakers1.jpg',
+      img: process.env.PUBLIC_URL + '/img/sneakers1.jpg',
       desc: 'The front wheel can be removed with the supplied wrench.',
       full_desc: `
       <h3>Features</h3>
@@ -214,7 +212,7 @@ function App() {
     {
       id: 11,
       title: 'Soft kettlebell',
-      img: process.env.PUBLIC_URL + '/kettlebell2.jpg',
+      img: process.env.PUBLIC_URL + '/img/kettlebell2.jpg',
       desc: ' The kettlebell is filled with sand, which contributes to an even distribution of weight',
       full_desc: `
       <h3>Features</h3>
@@ -233,7 +231,7 @@ function App() {
     {
       id: 12,
       title: 'Sport towel',
-      img: process.env.PUBLIC_URL + '/sport_towel.jpg',
+      img: process.env.PUBLIC_URL + '/img/sport_towel.jpg',
       desc: 'The fabric absorbs moisture well and it is very soft.',
       full_desc: `
       <h3>Features</h3>
@@ -249,7 +247,7 @@ function App() {
     {
       id: 13,
       title: 'Belt for weight loss',
-      img: process.env.PUBLIC_URL + '/slimming_belt.jpg',
+      img: process.env.PUBLIC_URL + '/img/slimming_belt.jpg',
       desc: 'This slimming belt is made of high quality neoprene.',
       full_desc: `
       <h3>Features</h3>
@@ -266,7 +264,7 @@ function App() {
     {
       id: 14,
       title: 'Soccer ball',
-      img: process.env.PUBLIC_URL + '/football1.jpg',
+      img: process.env.PUBLIC_URL + '/img/football1.jpg',
       desc: 'The ball has a perfect spherical shape and excellent playing characteristics.',
       full_desc: `
       <h3>Features</h3>
@@ -285,7 +283,7 @@ function App() {
     {
       id: 15,
       title: 'Sneakers high',
-      img: process.env.PUBLIC_URL + '/sneakers2.jpg',
+      img: process.env.PUBLIC_URL + '/img/sneakers2.jpg',
       desc: 'High-quality upper materials provide the sneakers with durability and resistance to wear.',
       full_desc: `
       <h3>Features</h3>
@@ -304,7 +302,7 @@ function App() {
     {
       id: 16,
       title: 'Belt for kimono',
-      img: process.env.PUBLIC_URL + '/kimono_belt1.jpg',
+      img: process.env.PUBLIC_URL + '/img/kimono_belt1.jpg',
       desc: 'The kimono belt is made of cotton and has several rows of longitudinal seams.',
       full_desc: `
       <h3>Features</h3>
