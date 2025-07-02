@@ -4,7 +4,7 @@ import { FaTrash } from 'react-icons/fa';
 function Order({ item, onDelete }) {
   return (
     <div className='order-item'>
-      <img src={process.env.PUBLIC_URL + '/img/' + item.img} alt={item.title} />
+      <img src={`./img/${item.img}`} alt={item.title} />
       <h2>{item.title} {item.quantity > 1 && `(x${item.quantity})`}</h2>
       <b>{item.price}₴</b>
       <FaTrash 

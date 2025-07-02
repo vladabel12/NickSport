@@ -9,6 +9,9 @@ import ShowFullItem from "./components/ShowFullItem";
 import Contacts from "./components/Contacts";
 import OurLocation from "./components/OurLocation";
 
+import volleyballImg from './img/voleyball.jpg';
+
+
 function App() {
   const [orders, setOrders] = useState([]);
   const [currentItems, setCurrentItems] = useState([]);
@@ -21,7 +24,7 @@ function App() {
     {
       id: 1,
       title: 'Volleyball beach ball',
-      img: process.env.PUBLIC_URL + '/voleyball.jpg',
+      img: volleyballImg,
       desc: 'Beach volleyball. The ball is designed for beach volleyball.',
       full_desc: `
       <h3>Features</h3>
@@ -41,7 +44,7 @@ function App() {
     {
       id: 2,
       title: 'Goalkeeper gloves',
-      img: process.env.PUBLIC_URL + '/goalkeeper_gloves.jpg',
+      img: '/src/img/goalkeeper_gloves.jpg',
       desc: 'High-quality goalkeeping gloves with optimal performance',
       full_desc: `
       <h3>Features</h3>
@@ -78,7 +81,7 @@ function App() {
     {
       id: 4,
       title: 'Towel for the beach',
-      img: process.env.PUBLIC_URL + '/towel_beach.jpg',
+      img: process.env.PUBLIC_URL + '/img/towel_beach.jpg',
       desc: 'It dries quickly, does not accumulate moisture and does not retain bad odors.',
       full_desc: `
       <h3>Features</h3>
