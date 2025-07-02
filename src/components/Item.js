@@ -13,7 +13,7 @@ function Item({ item, onAdd, onShowItem }) {
 
   return (
     <div className="item">
-      <img src={`./img/${item.img}`} alt={item.title} onClick={() => onShowItem(item)} />
+      <img src={process.env.PUBLIC_URL + '/img/' + item.img} alt={item.title} onClick={() => onShowItem(item)} />
       <h2>{item.title}</h2>
       <p>{item.desc}</p>
       <b className="item-price">{item.price}₴</b>
