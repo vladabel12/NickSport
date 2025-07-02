@@ -4,8 +4,8 @@ export default function OurLocation() {
   return (
     <div className='our_location_page'>
       <div className='our_location_images'>
-        <img className='our_location_image' src="/img/shop_photo.jpg" alt="Shop Photo 1"></img>
-        <img className='our_location_image' src="/img/shop_photo2.jpg" alt="Shop Photo 2"></img>
+        <img className='our_location_image' src={process.env.PUBLIC_URL + '/img/shop_photo.jpg'} alt="Shop Photo 1"></img>
+        <img className='our_location_image' src={process.env.PUBLIC_URL + '/img/shop_photo2.jpg'} alt="Shop Photo 2"></img>
       </div>
       <div className='our_location_main'>
         <div className='our_location_main_title'>Our Location</div>
