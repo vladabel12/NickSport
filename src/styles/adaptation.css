@@ -55,7 +55,7 @@ p, b, .footer,  .presentation::before {
     gap: 10rem;
   }
   .item{
-    width: 250rem;
+    width: 200rem;
     margin-bottom: 10rem;
   }
   p, b, footer {
@@ -111,7 +111,7 @@ p, b, .footer,  .presentation::before {
   }
 
   .item {
-    width: calc(40% - 15rem); 
+    width: calc(45% - 15rem); 
   }
 
   main {

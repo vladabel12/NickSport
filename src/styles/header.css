@@ -30,25 +30,24 @@ ul.nav li:hover{
     position: relative;
 }
 
-.home_presentation::after{
-    content: 'The best sports goods';
-    position: absolute;
-    top: 70rem;
-    left: 30rem;
-    width: 300rem;
-    font-size: 40rem;
-    font-weight: 600;
-    color: #fff;
+.presentation_title {
+  position: absolute;
+  top: 70rem;
+  left: 30rem;
+  width: 400rem;
+  font-size: 40rem;
+  font-weight: 600;
+  color: #fff;
 }
-.home_presentation::before{
-    content: 'At fair prices';
-    position: absolute;
-    top: 170rem;
-    left: 30rem;
-    width: 300rem;
-    font-size: 15rem;
-    font-weight: 450;
-    color: #fff;
+
+.presentation_desc {
+  position: absolute;
+  top: 170rem;
+  left: 30rem;
+  width: 300rem;
+  font-size: 15rem;
+  font-weight: 450;
+  color: #fff;
 }
 .header-icons {
   display: flex;
@@ -105,6 +104,33 @@ ul.nav li:hover{
     background-color: #c32a2a;
     transform: scale(1.1);
 }
+.globe-icon {
+  font-size: 20rem;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+.globe-icon:hover {
+  color: #dc3d3d;
+  transform: scale(1.5);
+}
+.language-menu {
+  position: absolute;
+  top: 30rem;
+  background: #fff;
+  border: 1rem solid #ccc;
+  border-radius: 5rem;
+  padding: 10rem;
+  box-shadow: 0 0 10rem rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+.language-menu div {
+  padding: 5rem 10rem;
+  cursor: pointer;
+}
+.language-menu div:hover {
+  background-color: #f2f2f2;
+}
+
 .burger-icon,
 .close-icon {
   font-size: 20rem;

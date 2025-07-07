@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import QuantitySelector from './QuantitySelector';
+import { useTranslation } from 'react-i18next';
 
 function ShowFullItem({ item, onAdd, onShowItem }) {
+  const { t } = useTranslation();
   const [quantity, setQuantity] = useState("1");
 
   const handleAdd = (e) => {
@@ -17,7 +19,7 @@ function ShowFullItem({ item, onAdd, onShowItem }) {
         <div>
             <img src={item.img} alt={item.title} onClick={() => onShowItem(item)}/>
             <h2>{item.title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: item.full_desc }} />
+            <div dangerouslySetInnerHTML={{ __html: t(`products.${item.id}.full_desc`) }} />
             <b>{item.price}₴</b>
             <div className='item-bottom'>
               <QuantitySelector onChange={setQuantity} />

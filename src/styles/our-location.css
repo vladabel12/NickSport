@@ -1,20 +1,19 @@
 .our_location_page{
+    margin: 50rem 0 50rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20rem;
 }
 .our_location_images{
-    margin: 50rem 0 50rem 0;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20rem;
 }
 .our_location_image{
-    width: 400rem;
+    flex: 1 1 400rem;
+    max-width: 400rem;
 }
 .our_location_main_title{
     font-weight: 700;
@@ -41,4 +40,7 @@
 .our_location_main_button:hover{
     border-color: #486940;
     transform: scale(1.1);
+}
+.our_location_main{
+    max-width: 650rem;
 }

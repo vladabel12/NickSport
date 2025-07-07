@@ -1,9 +1,11 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 
 export default function () {
+  const { t } = useTranslation();
   return (
     <footer>
-        All rights reserved &copy;
+      <p>{t('footer')} &copy;</p>
     </footer>
   )
 }

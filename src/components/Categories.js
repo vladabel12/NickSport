@@ -1,36 +1,38 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Categories = ({ chooseCategory }) => {
-  const [categories] = useState([
+  const { t } = useTranslation();
+  const categories = [
     {
       key: 'all',
-      name: 'All',
+      name: t('all'),
     },
     {
       key: 'balls',
-      name: 'Balls',
+      name: t('balls'),
     },
     {
       key: 'gloves',
-      name: 'Gloves',
+      name: t('gloves'),
     },
     {
       key: 'towels',
-      name: 'Towels',
+      name: t('towels'),
     },
     {
       key: 'kettlebells',
-      name: 'Kettlebells',
+      name: t('kettlebells'),
     },
     {
       key: 'belts',
-      name: 'Belts',
+      name: t('belts'),
     },
     {
       key: 'sneakers',
-      name: 'Sneakers',
+      name: t('sneakers'),
     },
-  ]);
+  ];
 
   return (
     <div className='categories'>
