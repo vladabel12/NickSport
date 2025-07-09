@@ -1,3 +1,8 @@
+.header_top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .logo {
     font-weight: 600;
     font-size: 20rem;
@@ -39,7 +44,6 @@ ul.nav li:hover{
   font-weight: 600;
   color: #fff;
 }
-
 .presentation_desc {
   position: absolute;
   top: 170rem;
@@ -54,13 +58,11 @@ ul.nav li:hover{
   align-items: center;
   justify-content: flex-end;
   gap: 20rem;
-  position: absolute;
-  top: 50rem;
-  right: 50rem;
   z-index: 1500;
 }
 
 .shop-cart-button {
+    font-size: 22rem;
     float: right;
     cursor: pointer;
     transition: color, transform 500ms ease;
@@ -115,7 +117,7 @@ ul.nav li:hover{
 }
 .language-menu {
   position: absolute;
-  top: 30rem;
+  top: 80rem;
   background: #fff;
   border: 1rem solid #ccc;
   border-radius: 5rem;
@@ -130,7 +132,36 @@ ul.nav li:hover{
 .language-menu div:hover {
   background-color: #f2f2f2;
 }
-
+.user_icon{
+  margin-top: 2.5px;
+  font-size: 20rem;
+  transition: color, transform 500ms ease;
+}
+.user_icon:hover {
+  color: #dc3d3d;
+  transform: scale(1.5);
+}
+.google_avatar{
+  margin-top: 3px;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.email_avatar{
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  background-color: #dc3d3d;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14rem;
+}
 .burger-icon,
 .close-icon {
   font-size: 20rem;

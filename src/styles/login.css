@@ -1,0 +1,28 @@
+.label_row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.create_form button.forgot_button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #68875d;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+
+.create_form button.forgot_button:hover {
+  color: #5f7557;
+  transform: scale(1.1);
+}
+.create_form p.error{
+    color: red;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: left;
+    margin-left: 0;
+}
+.go_back_button.go_back_button{
+    color: #fff;
+}

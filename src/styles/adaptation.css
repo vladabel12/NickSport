@@ -1,4 +1,4 @@
- @media (max-width: 1024px) {
+@media (max-width: 1024px) {
 ul.nav, .logo, .shop-cart-button, .categories{
     font-size: 23rem;
 }
@@ -34,18 +34,18 @@ p, b, .footer,  .presentation::before {
     margin: 30rem 0;
     height: 300rem;
   }
-  ul.nav, .logo, .shop-cart-button, .categories{
-    font-size: 16rem;
-  }
-  .presentation::after{
+  .presentation_title{
     font-size: 30rem;
     top: 40rem;
     left: 15rem;
   }
-  .presentation::before{
+  .presentation_desc{
     top: 120rem;
     left: 15rem;
     font-size: 14rem;
+  }
+  ul.nav, .logo, .shop-cart-button, .categories{
+    font-size: 16rem;
   }
   .categories div{
     margin-right: 8rem;
@@ -102,6 +102,65 @@ p, b, .footer,  .presentation::before {
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+  .create_account {
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    background: none;
+  }
+
+  .create_left {
+    display: none !important;
+  }
+
+  .create_welcome {
+    display: none;
+  }
+
+  .create_right {
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    z-index: 1;
+  }
+
+  form.create_form {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    width: 100%;
+    max-width: 400rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15rem;
+    align-items: center;
+  }
+  .create_form .create_title {
+    font-size: 40rem;
+  }
+
+  .create_form input {
+    background: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+  }
+
+  .create_form button {
+    background: none;
+    width: 100%;
+    max-width: 350rem;
+  }
+  .form_group{
+   width: 350rem;
+  }
+  form.create_form label{
+    font-size: 23rem;
+  }
+  .password_wrapper input{
+    padding-right: 40rem;
   }
 }
 

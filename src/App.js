@@ -9,6 +9,10 @@ import ShowFullItem from "./components/ShowFullItem";
 import Contacts from "./components/Contacts";
 import OurLocation from "./components/OurLocation";
 import { useTranslation } from 'react-i18next';
+import CreateAccount from "./components/CreateAccount";
+import LogIn from "./components/LogIn";
+import ResetPassword from "./components/ResetPassword";
+import MyAccount from "./components/MyAccount";
 
 
 function App() {
@@ -206,6 +210,10 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/our_location" element={<OurLocation />} />
+        <Route path="/create_account" element={<CreateAccount />} />
+        <Route path="/log_in" element={<LogIn />} />
+        <Route path="/reset_password" element={<ResetPassword />} />
+        <Route path="/my_account" element={<MyAccount />} />
       </Routes>
 
       <Footer />
