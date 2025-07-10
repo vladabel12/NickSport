@@ -36,8 +36,10 @@ export default function ResetPassword() {
             </div>
             <div className="create_right">
                 <form className="create_form">
-                    <h2>{t('resetPassword')}</h2>
-                    <input type="email" placeholder={t('EnterEmail')} value={email} onChange={e => setEmail(e.target.value)}/>
+                    <h2 className='create_title'>{t('resetPassword')}</h2>
+                    <div className='form_group'>
+                      <input type="email" placeholder={t('EnterEmail')} value={email} onChange={e => setEmail(e.target.value)}/>
+                    </div>
                     <button onClick={handleReset}>{t('SendResetEmail')}</button>
                     <button type="button" className="google_button"><Link to="/log_in" className='go_back_button'>{t('GoBack')}</Link></button>
                     {message && <p style={{ color: 'green' }}>{message}</p>}

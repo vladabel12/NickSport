@@ -145,22 +145,37 @@ p, b, .footer,  .presentation::before {
     background: transparent;
     border: none;
     width: 100%;
+    height: 37rem;
     outline: none;
   }
-
-  .create_form button {
-    background: none;
+  .create_form .form_group input {
+    font-size: 25rem;
+  }
+  form.create_form button {
     width: 100%;
-    max-width: 350rem;
+    max-width: 450rem;
+    font-size: 25rem;
   }
   .form_group{
-   width: 350rem;
+   width: 450rem;
   }
   form.create_form label{
     font-size: 23rem;
   }
+  .password_wrapper{
+    width: 472rem;
+  }
   .password_wrapper input{
     padding-right: 40rem;
+  }
+  .password_toggle{
+    font-size: 30rem;
+  }
+  form.create_form p{
+    font-size: 25rem;
+  }
+  .label_row{
+    width: 640rem;
   }
 }
 

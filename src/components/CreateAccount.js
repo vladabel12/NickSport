@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { auth, provider } from '../firebase';
-import { signInWithPopup, onAuthStateChanged, createUserWithEmailAndPassword, } from 'firebase/auth';
+import {
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +18,23 @@ export default function CreateAccount() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // 🔁 Перевірка результату після Google-редіректу
+  useEffect(() => {
+    const checkRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          setUser(result.user);
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Помилка після Google редіректу:', error);
+      }
+    };
+    checkRedirectResult();
+  }, [navigate]);
+
+  // 🔄 Відслідковування авторизації
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -21,11 +43,10 @@ export default function CreateAccount() {
     return () => unsubscribe();
   }, [navigate]);
 
+  // ✅ Google login з редіректом (для мобільних)
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
-      navigate('/');
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error('Помилка входу через Google:', error);
     }
@@ -70,7 +91,13 @@ export default function CreateAccount() {
           <div className='form_group password_group'>
             <label htmlFor="password">{t('password')}</label>
             <div className="password_wrapper">
-              <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
               <span className="password_toggle" onClick={() => setShowPassword((prev) => !prev)}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
