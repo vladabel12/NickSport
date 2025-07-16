@@ -8,6 +8,8 @@ import Order from './Order';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+
+
 const ShowOrders = ({ orders, onDelete }) => {
   const summa = orders.reduce((total, el) => total + Number.parseFloat(el.price) * (el.quantity || 1), 0);
   const { t } = useTranslation();
@@ -24,6 +26,9 @@ const ShowOrders = ({ orders, onDelete }) => {
 };
 
 const Header = ({ orders, onDelete }) => {
+  const handleCheckout = () => {
+  navigate('/checkout');
+};
   const [cartOpen, setCartOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -85,13 +90,15 @@ const handleLogout = async () => {
         {cartOpen && (
           <div className='shop-cart'>
             {orders.length > 0 ? (
-              <ShowOrders orders={orders} onDelete={onDelete} />
-            ) : (
-              <h2 className='empty'>{t('cart_empty')}</h2>
-            )}
-            <button type="submit" className="buy_button">{t('buy')}</button>
-          </div>
-        )}
+              <>
+                <ShowOrders orders={orders} onDelete={onDelete} />
+                <button type="button" className="buy_button" onClick={handleCheckout}>{t('buy')}</button>
+                </>
+                ) : (
+                <h2 className='empty'>{t('cart_empty')}</h2>
+                )}
+                </div>
+              )}
 
         {/* Меню зправа */}
         <div className={`side-menu ${menuOpen ? 'open' : ''}`}>

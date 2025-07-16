@@ -177,6 +177,16 @@ p, b, .footer,  .presentation::before {
   .label_row{
     width: 640rem;
   }
+  
+  input[type="radio"]:checked + .radio-green::after {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  input[type="radio"]:checked + .radio-red::after {
+    width: 8rem;
+    height: 8rem;
+  }
 }
 
 @media (max-width: 600px) {

@@ -16,6 +16,9 @@
     color: #797979;
     font-weight: 600;
 }
+.empty{
+  margin-bottom: 20rem;
+}
 .shop-cart .empty h2{
     font-size: 20rem;
     margin-bottom: 20rem;

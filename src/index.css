@@ -12,6 +12,7 @@
 @import './styles/our-location.css';
 @import './styles/create_account.css';
 @import './styles/login.css';
+@import './styles/checkout.css';
 :root {
   font-size: 0.0625vw; /* 1rem = 1px на екрані 1600px (1600*0.0625=100) */
 }
