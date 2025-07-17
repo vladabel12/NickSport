@@ -95,6 +95,7 @@ const resources = {
       ToTheDepartment: "To the department",
       ToTheParcelLocker: "To the parcel locker",
       ByCourier: "By courier",
+      PlaceOrder: "Place Order",
       products: {
         1: {
           title: 'Volleyball beach ball',
@@ -425,6 +426,7 @@ const resources = {
       ToTheDepartment: "До відділення",
       ToTheParcelLocker: "До поштомату",
       ByCourier: "Кур'єром",
+      PlaceOrder: "Оформити замовлення",
       products: {
         1: {
           title: "Волейбольний пляжний м'яч",

@@ -1,11 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
 
 export default function Checkout({ orders }) {
   const [postType, setPostType] = useState('novaPost');
   const [deliveryType, setDeliveryType] = useState('department');
   const [paymentMethod, setPaymentMethod] = useState('');
+  const formRef = useRef();
   const { t } = useTranslation();
+
+  const deliveryTypeMap = {
+    department: 'ToTheDepartment',
+    parcelLocker: 'ToTheParcelLocker',
+    courier: 'ByCourier',
+  };
+
+  const paymentMethodMap = {
+    card: 'payByCard',
+    cod: 'cashOnDelivery',
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const orderSummary = orders.map(
+      (item) =>
+        `${t(`products.${item.id}.title`)} x${item.quantity} — ${item.price * item.quantity}₴`
+    ).join('\n');
+
+    const form = e.target;
+    const postDetails = form.postDetails?.value || '';
+    const parcelLocker = form.parcelLocker?.value || '';
+    const street = form.street?.value || '';
+    const houseNumber = form.houseNumber?.value || '';
+    const apartment = form.apartment?.value || '';
+
+    const fullAddress = `${postDetails}${parcelLocker}${street ? ` ${street} ${houseNumber}` : ''}${apartment ? `, кв. ${apartment}` : ''}`;
+
+    const templateParams = {
+      firstName: form.firstName.value,
+      lastName: form.lastName.value,
+      phone: form.phone.value,
+      postType: t(postType), // переклад типу служби
+      deliveryType: t(deliveryTypeMap[deliveryType]), // переклад типу доставки
+      settlement: form.settlement.value,
+      postDetails: fullAddress,
+      paymentMethod: t(paymentMethodMap[paymentMethod]), // переклад методу оплати
+      message: form.message.value,
+      orderSummary,
+    };
+
+    emailjs
+      .send('service_1ax19m7', 'template_ezm0bnt', templateParams, 'U90TWkvO-_dTTghDJ')
+      .then(() => {
+        alert(t('orderSent'));
+        form.reset();
+      })
+      .catch((error) => {
+        alert(t('orderError'));
+        console.error('EmailJS error:', error);
+      });
+  };
 
   return (
     <div className="checkout_container">
@@ -28,16 +83,15 @@ export default function Checkout({ orders }) {
                 </div>
               ))}
               <h3 className="checkout_total">
-                {t('checkoutTotal')}: {orders.reduce((acc, item) => acc + item.price * item.quantity, 0)}₴
+                {t('total')}: {orders.reduce((acc, item) => acc + item.price * item.quantity, 0)}₴
               </h3>
-              <button className="checkout_button">Place an order</button>
             </div>
           )}
         </div>
 
+        {/* RIGHT SIDE */}
         <div className="checkout_right">
-          <form className="checkout_form">
-
+          <form className="checkout_form" ref={formRef} onSubmit={handleSubmit}>
             <h3 className="checkout_form_title">1. {t('contactDetails')}</h3>
             <p className="checkout_form_desc">{t('orderRecipient')}</p>
 
@@ -55,7 +109,6 @@ export default function Checkout({ orders }) {
             </div>
 
             <h3 className="checkout_form_title">2. {t('delivery')}</h3>
-
             <div className='checkout_row'>
               <label className="custom-radio">
                 <input type="radio" name="post" value="novaPost" checked={postType === 'novaPost'} onChange={() => setPostType('novaPost')} />
@@ -87,24 +140,21 @@ export default function Checkout({ orders }) {
               <input type="text" name="settlement" required />
             </div>
 
-            {/* Dynamic fields */}
             {deliveryType === 'department' && (
               <div className="form_field">
-                <label>
-                  {postType === 'novaPost' ? t('postOffice') : t('postAddress')}
-                </label>
+                <label className='checkout_label'>{postType === 'novaPost' ? t('postOffice') : t('postAddress')}</label>
                 <input
                   type="text"
                   name="postDetails"
-                  required
                   placeholder={postType === 'novaPost' ? t('enterBranch') : t('enterAddress')}
+                  required
                 />
               </div>
             )}
 
             {deliveryType === 'parcelLocker' && (
               <div className="form_field">
-                <label>{t('parcelLocker')}</label>
+                <label className='checkout_label'>{t('parcelLocker')}</label>
                 <input
                   type="text"
                   name="parcelLocker"
@@ -117,21 +167,21 @@ export default function Checkout({ orders }) {
             {deliveryType === 'courier' && (
               <>
                 <div className="form_field">
-                  <label>{t('street')}</label>
+                  <label className='checkout_label'>{t('street')}</label>
                   <input type="text" name="street" required placeholder={t('enterStreet')} />
                 </div>
                 <div className="form_field">
-                  <label>{t('houseNumber')}</label>
+                  <label className='checkout_label'>{t('houseNumber')}</label>
                   <input type="text" name="houseNumber" required placeholder={t('enterHouse')} />
                 </div>
                 <div className="form_field">
-                  <label>{t('apartment')}</label>
+                  <label className='checkout_label'>{t('apartment')}</label>
                   <input type="text" name="apartment" placeholder={t('enterApartment')} />
                 </div>
               </>
             )}
-            <h3 className="checkout_form_title">3. {t('payment')}</h3>
 
+            <h3 className="checkout_form_title">3. {t('payment')}</h3>
             <div className="checkout_row">
               <label className="custom-radio">
                 <input
@@ -140,6 +190,7 @@ export default function Checkout({ orders }) {
                   value="card"
                   checked={paymentMethod === 'card'}
                   onChange={() => setPaymentMethod('card')}
+                  required
                 />
                 <span className="radio-circle radio-green"></span> {t('payByCard')}
               </label>
@@ -150,6 +201,7 @@ export default function Checkout({ orders }) {
                   value="cod"
                   checked={paymentMethod === 'cod'}
                   onChange={() => setPaymentMethod('cod')}
+                  required
                 />
                 <span className="radio-circle radio-green"></span> {t('cashOnDelivery')}
               </label>
@@ -158,16 +210,16 @@ export default function Checkout({ orders }) {
             {paymentMethod === 'card' && (
               <p className="payment_notice">{t('cardPaymentNotice')}</p>
             )}
-            <div className='form_full-width'>
-              <label>{t('message')}</label>
-              <textarea placeholder={t('writeMessage')} rows="3"></textarea>
+
+            <div className="form_full-width">
+              <label className='checkout_label'>{t('message')}</label>
+              <textarea name="message" placeholder={t('writeMessage')} rows="3" />
             </div>
 
+            <button type="submit" className="checkout_button">{t('PlaceOrder')}</button>
           </form>
         </div>
       </div>
     </div>
   );
 }
-
-
