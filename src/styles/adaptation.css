@@ -64,6 +64,12 @@ p, b, .footer,  .presentation::before {
   h2 {
     font-size: 20rem;
   }
+  .item-bottom{
+    margin-right: 0;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 20rem;
+  }
   .about_us_page{
     flex-direction: column;
     align-items: center;

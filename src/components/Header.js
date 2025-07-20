@@ -14,7 +14,6 @@ const ShowOrders = ({ orders, onDelete }) => {
   const summa = orders.reduce((total, el) => total + Number.parseFloat(el.price) * (el.quantity || 1), 0);
   const { t } = useTranslation();
 
-
   return (
     <div>
       {orders.map(el => (
@@ -27,9 +26,12 @@ const ShowOrders = ({ orders, onDelete }) => {
 
 const Header = ({ orders, onDelete }) => {
   const handleCheckout = () => {
-  navigate('/checkout');
-};
+    setCartOpen(false);      // Закриває корзину
+    navigate('/checkout');   // Переходить на сторінку оформлення
+  };
+
   const [cartOpen, setCartOpen] = useState(false);
+  const totalItems = orders.reduce((acc, item) => acc + (item.quantity || 1), 0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
@@ -61,7 +63,11 @@ const handleLogout = async () => {
         <span className='logo'>NickSport</span>
         {/* Бургер і хрестик */}
         <div className="header-icons">
-          <FaShoppingCart onClick={() => setCartOpen(!cartOpen)} className={`shop-cart-button ${cartOpen ? 'active' : ''}`}/>
+          <div className="cart-icon-wrapper" onClick={() => setCartOpen(!cartOpen)}>
+            <FaShoppingCart className={`shop-cart-button ${cartOpen ? 'active' : ''}`} />
+            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+          </div>
+
           <FaGlobe className="globe-icon" onClick={() => setLanguageMenuOpen(!languageMenuOpen)} />
 
             {languageMenuOpen && (

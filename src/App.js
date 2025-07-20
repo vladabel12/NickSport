@@ -15,11 +15,17 @@ import ResetPassword from "./components/ResetPassword";
 import MyAccount from "./components/MyAccount";
 import Checkout from "./components/Checkout";
 import ThankYou from "./components/ThankYou";
+import { onAuthStateChanged } from "firebase/auth";   // З firebase/auth
+import { auth } from "./firebase";  
+
 
 
 function App() {
   const { t } = useTranslation();
+
   const [orders, setOrders] = useState([]);
+  const [user, setUser] = useState(null);
+
   const [currentItems, setCurrentItems] = useState([]);
   const [showFullItem, setShowFullItem] = useState(false);
   const [fullItem, setFullItem] = useState(null);
@@ -125,15 +131,42 @@ function App() {
     },
   ]);
 
+  // Слідкуємо за авторизацією користувача
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // При вході користувача - завантажуємо корзину з localStorage
+  useEffect(() => {
+    if (user) {
+      const savedOrders = localStorage.getItem(`orders_${user.uid}`);
+      if (savedOrders) {
+        setOrders(JSON.parse(savedOrders));
+      }
+    } else {
+      setOrders([]); // Очистити корзину, якщо нема користувача
+    }
+  }, [user]);
+
+  // Зберігаємо корзину в localStorage при зміні замовлень, якщо користувач авторизований
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem(`orders_${user.uid}`, JSON.stringify(orders));
+    }
+  }, [orders, user]);
+
   const onShowItem = (item) => {
-  if (fullItem && fullItem.id === item.id) {
-    setShowFullItem(false);
-    setFullItem(null);
-  } else {
-    setFullItem(item);
-    setShowFullItem(true);
-  }
-};
+    if (fullItem && fullItem.id === item.id) {
+      setShowFullItem(false);
+      setFullItem(null);
+    } else {
+      setFullItem(item);
+      setShowFullItem(true);
+    }
+  };
 
   const chooseCategory = (category) => {
     setCurrentPage(1);
@@ -176,54 +209,54 @@ function App() {
   };
 
   return (
-  <Router>
-    <div className="wrapper">
-      <Header orders={orders} onDelete={deleteOrder} />
-      
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Categories chooseCategory={chooseCategory} />
-              <Items onShowItem={onShowItem} items={visibleItems} onAdd={addToOrder} />
-              <div className="pagination">
-                <button className="pagination_button" onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
-                  {t('prev')}
-                </button>
-                <span className="pagination_page_of">
-                  {t('page')} {currentPage} {t('of')} {totalPages}
-                </span>
-                <button className="pagination_button" onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
-                  {t('next')}
-                </button>
-              </div>
-              {showFullItem && fullItem && (
-                <ShowFullItem 
-                  item={fullItem} 
-                  onAdd={addToOrder} 
-                  onShowItem={onShowItem} 
-                />
-              )}
-            </>
-          }
-        />
-        
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="/our_location" element={<OurLocation />} />
-        <Route path="/create_account" element={<CreateAccount />} />
-        <Route path="/log_in" element={<LogIn />} />
-        <Route path="/reset_password" element={<ResetPassword />} />
-        <Route path="/my_account" element={<MyAccount />} />
-        <Route path="/checkout" element={<Checkout orders={orders} />} />
-        <Route path="/thank_you" element={<ThankYou />} />
-      </Routes>
+    <Router>
+      <div className="wrapper">
+        <Header orders={orders} onDelete={deleteOrder} />
 
-      <Footer />
-    </div>
-  </Router>
-);
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Categories chooseCategory={chooseCategory} />
+                <Items onShowItem={onShowItem} items={visibleItems} onAdd={addToOrder} />
+                <div className="pagination">
+                  <button className="pagination_button" onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
+                    {t('prev')}
+                  </button>
+                  <span className="pagination_page_of">
+                    {t('page')} {currentPage} {t('of')} {totalPages}
+                  </span>
+                  <button className="pagination_button" onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
+                    {t('next')}
+                  </button>
+                </div>
+                {showFullItem && fullItem && (
+                  <ShowFullItem 
+                    item={fullItem} 
+                    onAdd={addToOrder} 
+                    onShowItem={onShowItem} 
+                  />
+                )}
+              </>
+            }
+          />
+
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/our_location" element={<OurLocation />} />
+          <Route path="/create_account" element={<CreateAccount />} />
+          <Route path="/log_in" element={<LogIn />} />
+          <Route path="/reset_password" element={<ResetPassword />} />
+          <Route path="/my_account" element={<MyAccount />} />
+          <Route path="/checkout" element={<Checkout orders={orders} />} />
+          <Route path="/thank_you" element={<ThankYou />} />
+        </Routes>
+
+        <Footer />
+      </div>
+    </Router>
+  );
 }
 
 export default App;

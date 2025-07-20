@@ -106,6 +106,26 @@ ul.nav li:hover{
     background-color: #c32a2a;
     transform: scale(1.1);
 }
+.cart-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: red;
+  color: white;
+  font-size: 14px;
+  padding: 2px 2px;
+  border-radius: 50%;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
 .globe-icon {
   font-size: 20rem;
   cursor: pointer;

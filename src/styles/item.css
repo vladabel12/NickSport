@@ -24,7 +24,7 @@
     margin-right: 20rem;
     display: flex;
     justify-content: flex-end;
-    gap: 10rem;
+    gap: 25rem;
     align-items: center;
 }
 h3{
@@ -42,20 +42,25 @@ b, .full-item b {
 .add-to-cart,
 .full-item .add-to-cart{
   background: #ca5252;
-  width: 40rem;
-  height: 40rem;
+  padding: 10rem 15rem;
   text-align: center;
-  line-height: 40rem;
   color: #fff;
-  border-radius: 50%;
+  border-radius: 7rem;
   cursor: pointer;
   font-weight: 600;
   transition: transform 500ms ease;
 }
 .add-to-cart:hover,
 .full-item .add-to-cart:hover{
-    transform: scale(1.3) translateY(-5rem);
+    transform: scale(1.1) translateY(-5rem);
 }
+.add-to-cart.added,
+.full-item .add-to-cart.added {
+  background: #a3a3a3; /* Сірий */
+  pointer-events: none;
+  transform: none; /* вимкнути ефект збільшення */
+}
+
 .quantity-controls {
   display: flex;
   align-items: center;

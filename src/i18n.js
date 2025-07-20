@@ -99,6 +99,7 @@ const resources = {
       ThankTitle: "Thank You",
       ThankDesc: "We have received your message and will contact you soon",
       GoBackHome: "Go back home",
+      added: "Added",
       products: {
         1: {
           title: 'Volleyball beach ball',
@@ -433,6 +434,7 @@ const resources = {
       ThankTitle: "Дякуємо",
       ThankDesc: "Ми отримали ваше повідомлення і зв'яжемося з вами найближчим часом",
       GoBackHome: "Повернутись на головну",
+      added: "Додано",
       products: {
         1: {
           title: "Волейбольний пляжний м'яч",
