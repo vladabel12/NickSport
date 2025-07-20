@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export default function Contacts() {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const form = useRef();
 
@@ -16,7 +18,7 @@ export default function Contacts() {
       'U90TWkvO-_dTTghDJ'
     )
     .then(() => {
-      alert('Повідомлення надіслано!');
+      navigate('/thank_you');
       e.target.reset(); // очищення форми
     })
     .catch(() => {

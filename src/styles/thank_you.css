@@ -1,0 +1,37 @@
+.thank_container{
+    margin: 50rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.thank_title{
+    text-align: center;
+    font-size: 60rem;
+    margin-bottom: 30rem;
+    font-weight: 600;
+    color: #333;
+}
+.thank_desc{
+    font-size: 25rem;
+    color: #666;
+    margin-bottom: 30rem;
+    text-align: center;
+}
+.go_home_button {
+    padding: 10rem 20rem;
+    background-color: #68875d;
+    color: white;
+    font-size: 25rem;
+    border: none;
+    border-radius: 5rem;
+    cursor: pointer;
+    transition: all 600ms ease;
+    margin-bottom: 30rem;
+}
+.go_home_button:hover{
+    transform: scale(1.1);
+}
+.thank_instagram, .thank_viber, .thank_facebook {
+    color: #333;
+    text-decoration: none;
+}

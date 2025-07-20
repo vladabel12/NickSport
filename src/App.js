@@ -14,6 +14,7 @@ import LogIn from "./components/LogIn";
 import ResetPassword from "./components/ResetPassword";
 import MyAccount from "./components/MyAccount";
 import Checkout from "./components/Checkout";
+import ThankYou from "./components/ThankYou";
 
 
 function App() {
@@ -216,6 +217,7 @@ function App() {
         <Route path="/reset_password" element={<ResetPassword />} />
         <Route path="/my_account" element={<MyAccount />} />
         <Route path="/checkout" element={<Checkout orders={orders} />} />
+        <Route path="/thank_you" element={<ThankYou />} />
       </Routes>
 
       <Footer />

@@ -1,8 +1,11 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Checkout({ orders }) {
+  const navigate = useNavigate();
   const [postType, setPostType] = useState('novaPost');
   const [deliveryType, setDeliveryType] = useState('department');
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -53,9 +56,10 @@ export default function Checkout({ orders }) {
     emailjs
       .send('service_1ax19m7', 'template_ezm0bnt', templateParams, 'U90TWkvO-_dTTghDJ')
       .then(() => {
-        alert(t('orderSent'));
         form.reset();
+        navigate('/thank_you');
       })
+
       .catch((error) => {
         alert(t('orderError'));
         console.error('EmailJS error:', error);
