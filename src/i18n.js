@@ -100,6 +100,11 @@ const resources = {
       ThankDesc: "We have received your message and will contact you soon",
       GoBackHome: "Go back home",
       added: "Added",
+      productCode: "Code",
+      categories: "Categories",
+      clothing: "Clothing",
+      accessories: "Accessories",
+      shoes: "Shoes",
       products: {
         1: {
           title: 'Volleyball beach ball',
@@ -435,6 +440,11 @@ const resources = {
       ThankDesc: "Ми отримали ваше повідомлення і зв'яжемося з вами найближчим часом",
       GoBackHome: "Повернутись на головну",
       added: "Додано",
+      productCode: 'Код',
+      categories: "Категорії",
+      clothing: "Одяг",
+      accessories: "Аксесуари",
+      shoes: "Взуття",
       products: {
         1: {
           title: "Волейбольний пляжний м'яч",

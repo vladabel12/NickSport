@@ -47,6 +47,12 @@ p, b, .footer,  .presentation::before {
   ul.nav, .logo, .shop-cart-button, .categories{
     font-size: 16rem;
   }
+  .cart-badge {
+    top: -10rem;
+    right: -10rem;
+    min-width: 15rem;
+    font-size: 10rem;
+  }
   .categories div{
     margin-right: 8rem;
     margin-bottom: 10rem;

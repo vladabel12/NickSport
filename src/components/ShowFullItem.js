@@ -41,6 +41,7 @@ function ShowFullItem({ item, onAdd, onShowItem }) {
           <h2>{item.title}</h2>
           <div dangerouslySetInnerHTML={{ __html: t(`products.${item.id}.full_desc`) }} />
           <b>{item.price}₴</b>
+          <p className="item-code">{t('productCode')}: {item.code}</p>
           <div className='item-bottom'>
             <QuantitySelector onChange={setQuantity} />
             <div

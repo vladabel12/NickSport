@@ -34,4 +34,8 @@
 .thank_instagram, .thank_viber, .thank_facebook {
     color: #333;
     text-decoration: none;
+    transition: all 600ms ease;
+}
+.thank_instagram:hover, .thank_viber:hover, .thank_facebook:hover{
+    transform: scale(1.3);
 }

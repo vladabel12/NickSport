@@ -1,15 +1,73 @@
-.categories div {
-    display: inline-block;
-    background: #f2f2f2;
-    border-radius: 50rem;
-    padding: 10rem 20rem;
-    margin-bottom: 25rem;
-    margin-right: 15rem;
-    cursor: pointer;
-    border: 1rem solid transparent;
-    transition: all 400ms ease;
+.categories {
+  position: relative;
+  font-size: 20rem;
 }
-.categories div:hover{
-    border-color: silver;
-    transform: scale(1.1);
+
+.categories-button {
+  display: inline-block;
+  background: #f2f2f2;
+  border-radius: 50rem;
+  padding: 10rem 20rem;
+  margin-bottom: 20rem;
+  margin-right: 15rem;
+  cursor: pointer;
+  border: 1rem solid transparent;
+  transition: all 400ms ease;
+  user-select: none;
+  font-size: 20rem;
 }
+
+.categories-button:hover {
+  border-color: silver;
+  transform: scale(1.1);
+}
+
+/* Випадаюче меню */
+.categories-dropdown {
+  position: absolute;
+  background: #fff;
+  padding: 15rem;
+  border-radius: 10rem;
+  box-shadow: 0 0 20rem rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 200rem;
+  max-height: 300rem;
+  overflow-y: auto;
+}
+
+.categories-item {
+  margin-bottom: 10rem;
+}
+
+.category-name {
+  cursor: pointer;
+  padding: 5rem 0;
+}
+
+.category-name.with-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.arrow {
+  margin-left: 10rem;
+  font-size: 14rem;
+}
+
+.subcategories {
+  padding-left: 20rem;
+}
+
+.subcategory-name {
+  cursor: pointer;
+  padding: 3rem 0;
+}
+
+.category-name:hover,
+.subcategory-name:hover {
+  color: #68875d;
+  text-decoration: underline;
+}
+

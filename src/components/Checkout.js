@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Checkout({ orders }) {
+export default function Checkout({ orders, setOrders }) {
   const navigate = useNavigate();
   const [postType, setPostType] = useState('novaPost');
   const [deliveryType, setDeliveryType] = useState('department');
@@ -27,9 +27,7 @@ export default function Checkout({ orders }) {
     e.preventDefault();
 
     const orderSummary = orders.map(
-      (item) =>
-        `${t(`products.${item.id}.title`)} x${item.quantity} — ${item.price * item.quantity}₴`
-    ).join('\n');
+      (item) => `${t(`products.${item.id}.title`)} (код: ${item.code}) x${item.quantity} — ${item.price * item.quantity}₴` ).join('\n');
 
     const form = e.target;
     const postDetails = form.postDetails?.value || '';
@@ -57,6 +55,7 @@ export default function Checkout({ orders }) {
       .send('service_1ax19m7', 'template_ezm0bnt', templateParams, 'U90TWkvO-_dTTghDJ')
       .then(() => {
         form.reset();
+        setOrders([]); // Очищає корзину
         navigate('/thank_you');
       })
 

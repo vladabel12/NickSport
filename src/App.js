@@ -38,96 +38,112 @@ function App() {
       img: process.env.PUBLIC_URL + '/img/voleyball.jpg',
       category: 'balls',
       price: '5915',
+      code: '0000',
     },
     {
       id: 2,
       img: process.env.PUBLIC_URL + '/img/goalkeeper_gloves.jpg',
       category: 'gloves',
       price: '1170',
+      code: '0001',
     },
     {
       id: 3,
       img: process.env.PUBLIC_URL + '/img/boxing_gloves.jpg',
       category: 'gloves',
       price: '1692',
+      code: '0010',
     },
     {
       id: 4,
       img: process.env.PUBLIC_URL + '/img/towel_beach.jpg',
       category: 'towels',
       price: '1055',
+      code: '0011',
     },
     {
       id: 5,
       img: process.env.PUBLIC_URL + '/img/kettlebell.jpg',
       category: 'kettlebells',
       price: '1412',
+      code: '0100',
     },
     {
       id: 6,
       img: process.env.PUBLIC_URL + '/img/belt1.jpg',
       category: 'belts',
       price: '1457',
+      code: '0101',
     },
     {
       id: 7,
       img: process.env.PUBLIC_URL + '/img/cleats1.jpg',
       category: 'sneakers',
       price: '1732',
+      code: '0110',
     },
     {
       id: 8,
       img: process.env.PUBLIC_URL + '/img/handball1.jpg',
       category: 'balls',
       price: '537',
+      code: '0111',
     },
     {
       id: 9,
       img: process.env.PUBLIC_URL + '/img/goalkeeper_gloves2.jpg',
       category: 'gloves',
       price: '632',
+      code: '1000',
     },
     {
       id: 10,
       img: process.env.PUBLIC_URL + '/img/sneakers1.jpg',
       category: 'sneakers',
       price: '1352',
+      code: '1001',
     },
     {
       id: 11,
       img: process.env.PUBLIC_URL + '/img/kettlebell2.jpg',
       category: 'kettlebells',
       price: '675',
+      code: '1011',
     },
     {
       id: 12,
       img: process.env.PUBLIC_URL + '/img/sport_towel.jpg',
       category: 'towels',
       price: '142',
+      code: '1100',
     },
     {
       id: 13,
       img: process.env.PUBLIC_URL + '/img/slimming_belt.jpg',
       category: 'belts',
       price: '415',
+      code: '1101',
     },
     {
       id: 14,
       img: process.env.PUBLIC_URL + '/img/football1.jpg',
       category: 'balls',
       price: '4489',
+      code: '1110',
     },
     {
       id: 15,
       img: process.env.PUBLIC_URL + '/img/sneakers2.jpg',
       category: 'sneakers',
       price: '702',
+      code: '1111',
     },
     {
       id: 16,
       img: process.env.PUBLIC_URL + '/img/kimono_belt1.jpg',
       category: 'belts',
       price: '120',
+      code: '10000',
     },
   ]);
 
@@ -182,19 +198,18 @@ function App() {
   };
 
   const addToOrder = (item) => {
-    setOrders(prevOrders => {
-      const existingItemIndex = prevOrders.findIndex(el => el.id === item.id);
-      if (existingItemIndex >= 0) {
-        const updatedOrders = [...prevOrders];
-        updatedOrders[existingItemIndex] = {
-          ...updatedOrders[existingItemIndex],
-          quantity: (updatedOrders[existingItemIndex].quantity || 1) + 1
-        };
-        return updatedOrders;
-      }
-      return [...prevOrders, { ...item, quantity: 1 }];
-    });
+    const existingItemIndex = orders.findIndex(orderItem => orderItem.id === item.id);
+    const fullItem = items.find(el => el.id === item.id); // <-- важливо: отримуємо повний товар з code
+
+    if (existingItemIndex !== -1) {
+      const updatedOrders = [...orders];
+      updatedOrders[existingItemIndex].quantity += 1;
+      setOrders(updatedOrders);
+    } else {
+      setOrders([...orders, { ...fullItem, quantity: 1 }]); // <-- додаємо повністю
+    }
   };
+
 
   useEffect(() => {
     setCurrentItems(items);
@@ -249,7 +264,7 @@ function App() {
           <Route path="/log_in" element={<LogIn />} />
           <Route path="/reset_password" element={<ResetPassword />} />
           <Route path="/my_account" element={<MyAccount />} />
-          <Route path="/checkout" element={<Checkout orders={orders} />} />
+          <Route path="/checkout" element={<Checkout orders={orders} setOrders={setOrders} />} />
           <Route path="/thank_you" element={<ThankYou />} />
         </Routes>
 

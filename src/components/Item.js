@@ -27,6 +27,7 @@ function Item({ item, onAdd, onShowItem }) {
       <h2>{t(`products.${item.id}.title`)}</h2>
       <p>{t(`products.${item.id}.desc`)}</p>
       <b className="item-price">{item.price}₴</b>
+      <p className="item-code">{t('productCode')}: {item.code}</p>
       <div className="item-bottom">
         <QuantitySelector onChange={setQuantity} />
         <div className={`add-to-cart ${added ? 'added' : ''}`}  onClick={handleAdd}>
