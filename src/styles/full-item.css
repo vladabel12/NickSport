@@ -13,12 +13,12 @@
 }
 
 .full-item > div {
-    position: relative;
-    width: 500rem;
-    padding: 40rem 30rem;
-    background: #fff;
-    border-radius: 9rem;
-    box-shadow: 0 10rem 30rem rgba(0, 0, 0, 0.3);
-    max-height: 90vh;
-    overflow-y: auto;
+  position: relative;
+  width: 500rem;
+  padding: 40rem 30rem;
+  background: #fff;
+  border-radius: 9rem;
+  box-shadow: 0 10rem 30rem rgba(0, 0, 0, 0.3);
+  max-height: 90vh;
+  overflow-y: auto;
 }

@@ -38,8 +38,12 @@
 .categories-item {
   margin-bottom: 10rem;
 }
-
+.category-header{
+  display: flex;
+}
 .category-name {
+  font-size: 20rem;
+  font-weight: 600;
   cursor: pointer;
   padding: 5rem 0;
 }
@@ -47,6 +51,7 @@
 .category-name.with-sub {
   display: flex;
   justify-content: space-between;
+  gap: 10rem;
   align-items: center;
   user-select: none;
 }

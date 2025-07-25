@@ -199,6 +199,15 @@ p, b, .footer,  .presentation::before {
     width: 8rem;
     height: 8rem;
   }
+  input.url_image{
+    width: 60%;
+  }
+  label.choose_file_button{
+    font-size: 15rem;
+  }
+  button.add_button{
+    padding: 15rem 100rem;
+  }
 }
 
 @media (max-width: 600px) {

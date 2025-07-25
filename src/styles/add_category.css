@@ -1,0 +1,28 @@
+.add_category_button{
+    padding: 5rem;
+    font-size: 17rem;
+    cursor: pointer;
+    border: 1rem solid transparent;
+    border-radius: 10rem;
+    transition: all 400ms ease;
+    user-select: none;
+    margin-bottom: 10rem;
+}
+.add_category_button:hover{
+    border-color: silver;
+    transform: scale(1.1);
+}
+.add-category-form{
+    display: flex;
+    flex-direction: column;
+}
+.add_category_input{
+    font-size: 20rem;
+    max-width: 300rem;
+    margin-bottom: 10rem;
+}
+.add_subcategory{
+    padding: 5rem;
+    font-size: 15rem;
+    width: 180rem;
+}

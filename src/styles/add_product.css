@@ -1,0 +1,66 @@
+.main_buttons{
+    display: flex;
+}
+.add_product_button{
+    color: #777;
+    font-size: 20rem;
+}
+.add-product-form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30rem;
+    max-width: 900rem;
+}
+.add_product_input{
+    font-size: 20rem;
+    margin-bottom: 10rem;
+}
+.add_image{
+    display: flex;
+    justify-content: start;
+    gap: 20rem;
+    align-items: center;
+}
+.add_products_category{
+    max-width: 500rem;
+    font-size: 20rem;
+}
+.url_image{
+    width: 70%;
+}
+.add_products{
+    margin-top: 20rem;
+    max-width: 900rem;
+    display: flex;
+    justify-content: center;
+}
+.add_button{
+    font-size: 20rem;
+    padding: 15rem 200rem;
+    border: 1rem solid transparent;
+    border-radius: 20rem;
+    cursor: pointer;
+    color: #777;
+    transition: all 400ms ease;
+}
+.add_button:hover{
+    border-color: silver;
+    transform: scale(1.1);
+}
+.hidden_button{
+    display: none;
+}
+.choose_file_button{
+    background: #f2f2f2;
+    padding: 10rem 15rem;
+    font-size: 20rem;
+    cursor: pointer;
+    border-radius: 20rem;
+    border: 1rem solid transparent;
+    color: #777;
+    transition: all 400ms ease;
+}
+.choose_file_button:hover{
+    border-color: silver;
+    transform: scale(1.1);
+}

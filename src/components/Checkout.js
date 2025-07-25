@@ -3,14 +3,13 @@ import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function Checkout({ orders, setOrders }) {
   const navigate = useNavigate();
   const [postType, setPostType] = useState('novaPost');
   const [deliveryType, setDeliveryType] = useState('department');
   const [paymentMethod, setPaymentMethod] = useState('');
   const formRef = useRef();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const deliveryTypeMap = {
     department: 'ToTheDepartment',
@@ -26,8 +25,10 @@ export default function Checkout({ orders, setOrders }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const orderSummary = orders.map(
-      (item) => `${t(`products.${item.id}.title`)} (код: ${item.code}) x${item.quantity} — ${item.price * item.quantity}₴` ).join('\n');
+    const orderSummary = orders.map((item) => {
+      const title = i18n.language === 'ua' ? item.name_ua : item.name_en;
+      return `${title} (код: ${item.code}) x${item.quantity} — ${item.price * item.quantity}₴`;
+    }).join('\n');
 
     const form = e.target;
     const postDetails = form.postDetails?.value || '';
@@ -42,11 +43,11 @@ export default function Checkout({ orders, setOrders }) {
       firstName: form.firstName.value,
       lastName: form.lastName.value,
       phone: form.phone.value,
-      postType: t(postType), // переклад типу служби
-      deliveryType: t(deliveryTypeMap[deliveryType]), // переклад типу доставки
+      postType: t(postType),
+      deliveryType: t(deliveryTypeMap[deliveryType]),
       settlement: form.settlement.value,
       postDetails: fullAddress,
-      paymentMethod: t(paymentMethodMap[paymentMethod]), // переклад методу оплати
+      paymentMethod: t(paymentMethodMap[paymentMethod]),
       message: form.message.value,
       orderSummary,
     };
@@ -55,10 +56,9 @@ export default function Checkout({ orders, setOrders }) {
       .send('service_1ax19m7', 'template_ezm0bnt', templateParams, 'U90TWkvO-_dTTghDJ')
       .then(() => {
         form.reset();
-        setOrders([]); // Очищає корзину
+        setOrders([]);
         navigate('/thank_you');
       })
-
       .catch((error) => {
         alert(t('orderError'));
         console.error('EmailJS error:', error);
@@ -69,22 +69,24 @@ export default function Checkout({ orders, setOrders }) {
     <div className="checkout_container">
       <h1 className="checkout_title">{t('YourOrder')}</h1>
       <div className="checkout_main">
-
         {/* LEFT SIDE */}
         <div className="checkout_left">
           {orders.length === 0 ? (
             <p>{t('cart_empty')}</p>
           ) : (
             <div className="checkout_items">
-              {orders.map((item) => (
-                <div key={item.id} className="checkout_item">
-                  <img src={item.img} alt={t(`products.${item.id}.title`)} className="checkout_img" />
-                  <div className="checkout_product_info">
-                    <p>{t(`products.${item.id}.title`)}</p>
-                    <b>{item.price}₴ {item.quantity > 1 && `x${item.quantity}`}</b>
+              {orders.map((item) => {
+                const title = i18n.language === 'ua' ? item.name_ua : item.name_en;
+                return (
+                  <div key={item.id} className="checkout_item">
+                    <img src={item.image} alt={title} className="checkout_img" />
+                    <div className="checkout_product_info">
+                      <p>{title}</p>
+                      <b>{item.price * item.quantity}₴ {item.quantity > 1 && `(x${item.quantity})`}</b>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
               <h3 className="checkout_total">
                 {t('total')}: {orders.reduce((acc, item) => acc + item.price * item.quantity, 0)}₴
               </h3>

@@ -1,15 +1,17 @@
 import React from 'react';
 import Item from './Item';
 
-function Items({ items, onAdd, onShowItem }) {
+function Items({ items, onAdd, onShowItem, onDelete, isAdmin }) {
   return (
     <main>
       {items.map((el) => (
         <Item 
-          onShowItem={onShowItem} 
           key={el.id} 
           item={el} 
           onAdd={onAdd} 
+          onShowItem={onShowItem}
+          onDelete={onDelete}
+          isAdmin={isAdmin}
         />
       ))}
     </main>
