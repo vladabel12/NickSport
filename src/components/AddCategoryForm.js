@@ -82,7 +82,7 @@ const AddCategoryForm = () => {
             onChange={(e) => setCategory({ ...category, name_en: e.target.value })}
             required className='add_category_input'/>
 
-          <h5>Підкатегорії:</h5>
+          <h4 className='subcategory_title'>Підкатегорії:</h4>
           {category.subcategories.map((s, i) => (
             <div key={i}>{s.key} — {s.name_ua}</div>
           ))}

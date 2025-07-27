@@ -48,19 +48,55 @@
     transform: scale(1.1);
 }
 .hidden_button{
-    display: none;
-}
-.choose_file_button{
-    background: #f2f2f2;
-    padding: 10rem 15rem;
-    font-size: 20rem;
     cursor: pointer;
-    border-radius: 20rem;
-    border: 1rem solid transparent;
-    color: #777;
-    transition: all 400ms ease;
 }
-.choose_file_button:hover{
-    border-color: silver;
-    transform: scale(1.1);
+.add-product-message {
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+.add-product-message.success {
+  background: #e6ffe6;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+.add-product-message.error {
+  background: #ffe6e6;
+  color: #c62828;
+  border: 1px solid #c62828;
+}
+.toast-message {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 9999;
+  background: #fff;
+  padding: 15px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  color: #000;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  animation: fadeInOut 4s ease-in-out;
+}
+
+
+.toast-message.success {
+  background-color: #e6ffe6;
+  color: #2e7d32;
+  border: 1rem solid #2e7d32;
+}
+
+.toast-message.error {
+  background-color: #ffe6e6;
+  color: #c62828;
+  border: 1rem solid #c62828;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20rem); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20rem); }
 }

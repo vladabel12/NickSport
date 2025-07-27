@@ -8,8 +8,6 @@ import Order from './Order';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-
-
 const ShowOrders = ({ orders, onDelete }) => {
   const summa = orders.reduce((total, el) => total + Number.parseFloat(el.price) * (el.quantity || 1), 0);
   const { t } = useTranslation();
@@ -37,25 +35,45 @@ const Header = ({ orders, onDelete }) => {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-const { t, i18n } = useTranslation();
-const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
-const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
-  return () => unsubscribe();
-}, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
-const changeLanguage = (lng) => {
-  i18n.changeLanguage(lng);
-  setLanguageMenuOpen(false);
-};
-const handleLogout = async () => {
+  // Global click handler to close menus
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // Basket
+      if (cartOpen && !event.target.closest('.shop-cart') && !event.target.closest('.cart-icon-wrapper')) {
+        setCartOpen(false);
+      }
+      // Language menu
+      if (languageMenuOpen && !event.target.closest('.language-menu') && !event.target.closest('.globe-icon')) {
+        setLanguageMenuOpen(false);
+      }
+      // Burger menu
+      if (menuOpen && !event.target.closest('.side-menu') && !event.target.closest('.burger-icon')) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [cartOpen, languageMenuOpen, menuOpen]);
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setLanguageMenuOpen(false);
+  };
+  const handleLogout = async () => {
     await signOut(auth);
     setUser(null);
-};
+  };
 
   return (
     <header>
@@ -70,22 +88,22 @@ const handleLogout = async () => {
 
           <FaGlobe className="globe-icon" onClick={() => setLanguageMenuOpen(!languageMenuOpen)} />
 
-            {languageMenuOpen && (
-              <div className="language-menu">
-                <div onClick={() => changeLanguage('ua')}>Українська</div>
-                <div onClick={() => changeLanguage('en')}>English</div>
+          {languageMenuOpen && (
+            <div className="language-menu">
+              <div onClick={() => changeLanguage('ua')}>Українська</div>
+              <div onClick={() => changeLanguage('en')}>English</div>
+            </div>
+          )}
+          {user ? (
+            <div className="user_avatar_wrapper" style={{ position: 'relative', cursor: 'pointer' }}>
+              {user.photoURL ? (
+                <img className='google_avatar' src={user.photoURL} alt={user.displayName || 'User'} title={user.email} onClick={() => navigate('/my_account')}/>) : (
+                <div className='email_avatar' title={user.email} onClick={() => navigate('/my_account')}>
+                  {user.email[0].toUpperCase()}
                 </div>
               )}
-            {user ? (
-              <div className="user_avatar_wrapper" style={{ position: 'relative', cursor: 'pointer' }}>
-                {user.photoURL ? (
-                  <img className='google_avatar' src={user.photoURL} alt={user.displayName || 'User'} title={user.email} onClick={() => navigate('/my_account')}/>) : (
-                  <div className='email_avatar' title={user.email} onClick={() => navigate('/my_account')}>
-                    {user.email[0].toUpperCase()}
-                  </div>
-                )}
-              </div>
-            ) : (
+            </div>
+          ) : (
             <Link to="/create_account"><FaUser className="user_icon" /></Link>
           )}
 
@@ -99,12 +117,12 @@ const handleLogout = async () => {
               <>
                 <ShowOrders orders={orders} onDelete={onDelete} />
                 <button type="button" className="buy_button" onClick={handleCheckout}>{t('buy')}</button>
-                </>
-                ) : (
-                <h2 className='empty'>{t('cart_empty')}</h2>
-                )}
-                </div>
-              )}
+              </>
+            ) : (
+              <h2 className='empty'>{t('cart_empty')}</h2>
+            )}
+          </div>
+        )}
 
         {/* Меню зправа */}
         <div className={`side-menu ${menuOpen ? 'open' : ''}`}>
@@ -120,7 +138,7 @@ const handleLogout = async () => {
       {isHome && <div className='presentation home_presentation'>
         <div className="presentation_title">{t('presentation_title')}</div>
         <div className="presentation_desc">{t('presentation_desc')}</div>
-        </div>}
+      </div>}
     </header>
   );
 };

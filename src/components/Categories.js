@@ -186,21 +186,17 @@ const Categories = ({ chooseCategory }) => {
                           + Додати підкатегорію
                         </button>
                       ) : (
-                        <div style={{ marginTop: '0.5rem' }}>
+                        <div>
                           <input
                             placeholder="Назва UA"
                             value={newSub.name_ua}
-                            onChange={(e) => setNewSub({ ...newSub, name_ua: e.target.value })}
-                            style={{ marginRight: '0.5rem' }}
-                          />
+                            onChange={(e) => setNewSub({ ...newSub, name_ua: e.target.value })} className='add_category_input'/>
                           <input
                             placeholder="Назва EN"
                             value={newSub.name_en}
-                            onChange={(e) => setNewSub({ ...newSub, name_en: e.target.value })}
-                            style={{ marginRight: '0.5rem' }}
-                          />
-                          <button onClick={() => handleAddSubcategory(cat)}>Додати</button>
-                          <button onClick={() => { setAddingSubTo(null); setNewSub({ name_ua: '', name_en: '' }); }} style={{ marginLeft: '0.5rem' }}>Скасувати</button>
+                            onChange={(e) => setNewSub({ ...newSub, name_en: e.target.value })} className='add_category_input'/>
+                          <button onClick={() => handleAddSubcategory(cat)} className='add_category_button add_sub_button'>Додати</button>
+                          <button onClick={() => { setAddingSubTo(null); setNewSub({ name_ua: '', name_en: '' }); }}className='add_category_button'>Скасувати</button>
                         </div>
                       )}
                     </>

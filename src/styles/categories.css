@@ -42,12 +42,11 @@
   display: flex;
 }
 .category-name {
-  font-size: 20rem;
+  font-size: 25rem;
   font-weight: 600;
   cursor: pointer;
   padding: 5rem 0;
 }
-
 .category-name.with-sub {
   display: flex;
   justify-content: space-between;
@@ -58,7 +57,7 @@
 
 .arrow {
   margin-left: 10rem;
-  font-size: 14rem;
+  font-size: 20rem;
 }
 
 .subcategories {
@@ -68,6 +67,7 @@
 .subcategory-name {
   cursor: pointer;
   padding: 3rem 0;
+  font-size: 20rem;
 }
 
 .category-name:hover,

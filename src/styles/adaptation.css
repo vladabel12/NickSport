@@ -64,10 +64,10 @@ p, b, .footer,  .presentation::before {
     width: 200rem;
     margin-bottom: 10rem;
   }
-  p, b, footer {
-    font-size: 14rem;
+  .quantity-controls button{
+    font-size: 20rem;
   }
-  h2 {
+  .quantity-controls input{
     font-size: 20rem;
   }
   .item-bottom{

@@ -21,6 +21,9 @@ import AddProductForm from "./components/AddProductForm";
 import { collection, onSnapshot } from "firebase/firestore";
 import { doc, deleteDoc } from "firebase/firestore";
 import CatalogPage from "./components/CatalogPage";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const [items, setItems] = useState([]);
@@ -146,15 +149,15 @@ function App() {
             path="/"
             element={
               <>
-              <div className="main_buttons">
-                {user?.email === "skhool2205@gmail.com" && (
-                  <button className="categories-button add_product_button" onClick={() => setShowAddForm(prev => !prev)} >
-                    {showAddForm ? "Закрити форму" : "Додати товар"}
-                  </button>
-                )}
-                <Categories chooseCategory={chooseCategory} />
-              </div>
-              {showAddForm && <AddProductForm />}
+                <div className="main_buttons">
+                  {user?.email === "skhool2205@gmail.com" && (
+                    <button className="categories-button add_product_button" onClick={() => setShowAddForm(prev => !prev)} >
+                      {showAddForm ? "Закрити форму" : "Додати товар"}
+                    </button>
+                  )}
+                  <Categories chooseCategory={chooseCategory} />
+                </div>
+                {showAddForm && <AddProductForm onClose={() => setShowAddForm(false)} />}
 
                 <Items
                   onShowItem={onShowItem}
@@ -203,10 +206,21 @@ function App() {
           <Route path="/my_account" element={<MyAccount />} />
           <Route path="/checkout" element={<Checkout orders={orders} setOrders={setOrders} />} />
           <Route path="/thank_you" element={<ThankYou />} />
-           <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
         </Routes>
 
         <Footer />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </Router>
   );

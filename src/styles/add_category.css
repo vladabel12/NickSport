@@ -1,6 +1,6 @@
 .add_category_button{
     padding: 5rem;
-    font-size: 17rem;
+    font-size: 20rem;
     cursor: pointer;
     border: 1rem solid transparent;
     border-radius: 10rem;
@@ -23,6 +23,12 @@
 }
 .add_subcategory{
     padding: 5rem;
-    font-size: 15rem;
+    font-size: 20rem;
     width: 180rem;
+}
+.subcategory_title{
+    font-size: 20rem;
+}
+.add_sub_button{
+    margin-right: 20rem;
 }
