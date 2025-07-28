@@ -23,6 +23,10 @@ import { doc, deleteDoc } from "firebase/firestore";
 import CatalogPage from "./components/CatalogPage";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { toast } from 'react-toastify';
+
 
 
 function App() {
@@ -35,19 +39,35 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showAddForm, setShowAddForm] = useState(false);
   const itemsPerPage = 8;
-
   const { t } = useTranslation();
 
   const deleteProduct = async (id) => {
-    if (!window.confirm("Видалити цей товар?")) return;
-    try {
-      await deleteDoc(doc(db, "products", id));
-      alert("✅ Товар видалено!");
-    } catch (err) {
-      alert("❌ Помилка видалення");
-      console.error(err);
-    }
-  };
+  confirmAlert({
+    title: 'Підтвердження видалення',
+    message: 'Ви дійсно хочете видалити цей товар?',
+    buttons: [
+      {
+        label: 'Так',
+        onClick: async () => {
+          try {
+            await deleteDoc(doc(db, "products", id));
+            toast.success("Товар видалено!");
+          } catch (err) {
+            toast.error("Помилка видалення");
+            console.error(err);
+          }
+        }
+      },
+      {
+        label: 'Скасувати',
+        onClick: () => {
+          toast.info("Видалення скасовано");
+        }
+      }
+    ]
+  });
+};
+
 
   // Автоматичне оновлення товарів з Firestore
   useEffect(() => {
@@ -203,7 +223,7 @@ function App() {
           <Route path="/create_account" element={<CreateAccount />} />
           <Route path="/log_in" element={<LogIn />} />
           <Route path="/reset_password" element={<ResetPassword />} />
-          <Route path="/my_account" element={<MyAccount />} />
+          <Route path="/my_account" element={<MyAccount onAdd={addToOrder} user={user} />} />
           <Route path="/checkout" element={<Checkout orders={orders} setOrders={setOrders} />} />
           <Route path="/thank_you" element={<ThankYou />} />
           <Route path="/catalog" element={<CatalogPage />} />

@@ -1,0 +1,80 @@
+.order_history {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order_card {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+.my_account_header{
+    margin-top: 50rem;
+    display: flex;
+    justify-content: space-between;
+}
+.logout_button{
+    padding: 10rem 20rem;
+    background-color: #dc3d3d;
+    color: #fff;
+    border: none;
+    border-radius: 5rem;
+    cursor: pointer;
+    font-size: 16rem;
+    margin-bottom: 15rem;
+    transition: background-color 300ms ease, transform 300ms ease;
+}
+.logout_button:hover{
+    background-color: #c32a2a;
+    transform: scale(1.1);
+}
+.go_home{
+    background-color: #68875d;
+}
+.go_home:hover{
+    background-color: #5f7557;
+}
+
+.order_items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.order_item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
+}
+
+.order_item_img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.order_item_info {
+  flex-grow: 1;
+}
+
+.repeat_button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #2e7d32;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.repeat_button:hover {
+  background-color: #1b5e20;
+}
+.repeat_order{
+    display: flex;
+    gap: 15rem;
+}

@@ -105,6 +105,16 @@ const resources = {
       clothing: "Clothing",
       accessories: "Accessories",
       shoes: "Shoes",
+      MyAccount: "My account",
+      History: "Order history",
+      Date: "Date:",
+      InTotal: "Total:",
+      Goods: "Goods:",
+      RepeatOrder: "Repeat order",
+      LogOut: "Log out of account",
+      NoOrders: "You have no orders yet",
+      NoDate: "No date",
+      Loading: "Loading...",
       products: {
         1: {
           title: 'Volleyball beach ball',
@@ -445,6 +455,16 @@ const resources = {
       clothing: "Одяг",
       accessories: "Аксесуари",
       shoes: "Взуття",
+      MyAccount: "Мій акаунт",
+      History: "Історія замовлень",
+      Date: "Дата:",
+      InTotal: "Всього:",
+      Goods: "Товари:",
+      RepeatOrder: "Повторити замовлення",
+      LogOut: "Вийти з акаунту",
+      NoOrders: "У вас ще немає замовлень",
+      NoDate: "Немає дати",
+      Loading: "Завантаження...",
       products: {
         1: {
           title: "Волейбольний пляжний м'яч",

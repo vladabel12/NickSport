@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { toast } from 'react-toastify';
+
 
 const AddCategoryForm = () => {
   const [showForm, setShowForm] = useState(false);
@@ -25,7 +27,7 @@ const AddCategoryForm = () => {
 
       const isDuplicate = category.subcategories.some(s => s.key === newSub.key);
       if (isDuplicate) {
-        alert('Підкатегорія з таким ключем уже існує');
+        toast.error('Підкатегорія з таким ключем уже існує');
         return;
       }
 
@@ -35,14 +37,14 @@ const AddCategoryForm = () => {
       }));
       setSub({ name_ua: '', name_en: '' });
     } else {
-      alert('Будь ласка, заповніть усі поля підкатегорії');
+      toast.warning('Будь ласка, заповніть усі поля підкатегорії');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!category.name_ua || !category.name_en) {
-      alert('Будь ласка, заповніть всі поля категорії');
+      toast.warning('Будь ласка, заповніть всі поля категорії');
       return;
     }
 
@@ -54,11 +56,11 @@ const AddCategoryForm = () => {
         key,
         createdAt: serverTimestamp()
       });
-      alert('Категорію створено');
+      toast.success('Категорію створено');
       setCategory({ name_ua: '', name_en: '', subcategories: [] });
       setShowForm(false); // сховати після додавання
     } catch (error) {
-      alert('Помилка при створенні категорії');
+      toast.error(' Помилка при створенні категорії');
       console.error(error);
     }
   };

@@ -1,4 +1,13 @@
 footer{
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 10rem;
+}
+.footer_title{
+    font-size: 20rem;
+}
+.footer_media{
+    display: flex;
+    gap: 15rem;
 }

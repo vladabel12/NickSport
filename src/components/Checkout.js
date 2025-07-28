@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Checkout({ orders, setOrders }) {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ export default function Checkout({ orders, setOrders }) {
     cod: 'cashOnDelivery',
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const orderSummary = orders.map((item) => {
@@ -52,23 +54,36 @@ export default function Checkout({ orders, setOrders }) {
       orderSummary,
     };
 
-    emailjs
-      .send('service_1ax19m7', 'template_ezm0bnt', templateParams, 'U90TWkvO-_dTTghDJ')
-      .then(() => {
-        form.reset();
-        setOrders([]);
-        navigate('/thank_you');
-      })
-      .catch((error) => {
-        alert(t('orderError'));
-        console.error('EmailJS error:', error);
-      });
+    try {
+      await emailjs.send('service_1ax19m7', 'template_ezm0bnt', templateParams, 'U90TWkvO-_dTTghDJ');
+
+      const user = auth.currentUser;
+      if (user) {
+        await addDoc(collection(db, "orders"), {
+          userId: user.uid,
+          items: orders,
+          total: orders.reduce((sum, item) => sum + item.price * item.quantity, 0),
+          createdAt: serverTimestamp(),
+          postType,
+          deliveryType,
+          paymentMethod,
+        });
+      }
+
+      form.reset();
+      setOrders([]);
+      navigate('/thank_you');
+    } catch (error) {
+      alert(t('orderError'));
+      console.error('Error sending order:', error);
+    }
   };
 
   return (
     <div className="checkout_container">
       <h1 className="checkout_title">{t('YourOrder')}</h1>
       <div className="checkout_main">
+
         {/* LEFT SIDE */}
         <div className="checkout_left">
           {orders.length === 0 ? (
