@@ -9,6 +9,13 @@ function ShowFullItem({ item, onAdd, onShowItem }) {
 
   const currentLang = i18n.language;
 
+  // Функція вибору тексту згідно з мовою
+  const getText = (field) => {
+    if (currentLang === 'ua') return item[field + '_ua'] || '';
+    if (currentLang === 'ru') return item[field + '_ru'] || item[field + '_ua'] || '';
+    return item[field + '_en'] || item[field + '_ua'] || '';
+  };
+
   useEffect(() => {
     window.history.pushState({ showFullItem: true }, '');
     const handlePopState = () => onShowItem(item);
@@ -17,24 +24,21 @@ function ShowFullItem({ item, onAdd, onShowItem }) {
   }, [item, onShowItem]);
 
   const handleAdd = (e) => {
-  if (e?.stopPropagation) e.stopPropagation();
-  const qty = parseInt(quantity || "1");
-  onAdd(item, qty); // передаємо кількість
-  setAdded(true);
-  setTimeout(() => setAdded(false), 2000);
-};
-
+    if (e?.stopPropagation) e.stopPropagation();
+    const qty = parseInt(quantity || "1");
+    onAdd(item, qty);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
 
   return (
     <div className='full-item-overlay' onClick={() => onShowItem(item)}>
       <div className='full-item' onClick={(e) => e.stopPropagation()}>
         <div>
-          <img src={item.image} alt={currentLang === 'ua' ? item.name_ua : item.name_en} />
-          <h2>{currentLang === 'ua' ? item.name_ua : item.name_en}</h2>
-          <div
-            style={{ whiteSpace: 'pre-wrap', marginBottom: '1rem' }}
-          >
-            {currentLang === 'ua' ? item.full_desc_ua : item.full_desc_en}
+          <img src={item.image} alt={getText('name')} />
+          <h2>{getText('name')}</h2>
+          <div style={{ whiteSpace: 'pre-wrap', marginBottom: '1rem' }}>
+            {getText('full_desc')}
           </div>
           <b>{item.price}₴</b>
           <p className="item-code">{t('productCode')}: {item.code}</p>
@@ -54,8 +58,5 @@ function ShowFullItem({ item, onAdd, onShowItem }) {
 }
 
 export default ShowFullItem;
-
-
-
 
 

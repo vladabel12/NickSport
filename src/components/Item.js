@@ -9,24 +9,30 @@ function Item({ item, onAdd, onShowItem, onDelete, isAdmin }) {
   const [quantity, setQuantity] = useState("1");
   const currentLang = i18n.language;
 
-  const handleAdd = (e) => {
-  if (e?.stopPropagation) e.stopPropagation();
-  const qty = parseInt(quantity || "1");
-  onAdd(item, qty); // передаємо кількість
-  setAdded(true);
-  setTimeout(() => setAdded(false), 2000);
-};
+  // Функція для отримання тексту з урахуванням мови, fallback на укр або англ
+  const getText = (field) => {
+    if (currentLang === 'ua') return item[field + '_ua'] || '';
+    if (currentLang === 'ru') return item[field + '_ru'] || item[field + '_ua'] || '';
+    return item[field + '_en'] || item[field + '_ua'] || '';
+  };
 
+  const handleAdd = (e) => {
+    if (e?.stopPropagation) e.stopPropagation();
+    const qty = parseInt(quantity || "1");
+    onAdd(item, qty);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
 
   return (
     <div className="item">
       <img
         src={item.image}
-        alt={currentLang === 'ua' ? item.name_ua : item.name_en}
+        alt={getText('name')}
         onClick={() => onShowItem(item)}
       />
-      <h2>{currentLang === 'ua' ? item.name_ua : item.name_en}</h2>
-      <p>{currentLang === 'ua' ? item.short_desc_ua : item.short_desc_en}</p>
+      <h2>{getText('name')}</h2>
+      <p>{getText('short_desc')}</p>
       <b className="item-price">{item.price}₴</b>
       <p className="item-code">{t('productCode')}: {item.code}</p>
 
@@ -47,5 +53,3 @@ function Item({ item, onAdd, onShowItem, onDelete, isAdmin }) {
 }
 
 export default Item;
-
-

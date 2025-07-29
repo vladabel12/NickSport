@@ -8,10 +8,12 @@ function AddProductForm({ onClose }) {
   const [form, setForm] = useState({
     name_ua: '',
     name_en: '',
+    name_ru: '',
     short_desc_ua: '',
     short_desc_en: '',
     full_desc_ua: '',
     full_desc_en: '',
+    full_desc_ru: '',
     price: '',
     code: '',
     category: '',
@@ -101,10 +103,13 @@ function AddProductForm({ onClose }) {
       setForm({
         name_ua: '',
         name_en: '',
+        name_ru: '',
         short_desc_ua: '',
         short_desc_en: '',
+        short_desc_ru: '',
         full_desc_ua: '',
         full_desc_en: '',
+        full_desc_ru: '',
         price: '',
         code: '',
         category: '',
@@ -124,10 +129,13 @@ function AddProductForm({ onClose }) {
     <form onSubmit={handleSubmit} className="add-product-form">
       <input name="name_ua" placeholder="Назва (укр)" value={form.name_ua} onChange={handleChange} required className='add_product_input' />
       <input name="name_en" placeholder="Name (en)" value={form.name_en} onChange={handleChange} required className='add_product_input' />
+      <input name="name_ru" placeholder="Назва (ru)" value={form.name_ru} onChange={handleChange} className='add_product_input'/>
       <input name="short_desc_ua" placeholder="Короткий опис (укр)" value={form.short_desc_ua} onChange={handleChange} className='add_product_input' />
       <input name="short_desc_en" placeholder="Short description (en)" value={form.short_desc_en} onChange={handleChange} className='add_product_input' />
+      <input name="short_desc_ru" placeholder="Короткий опис (ru)" value={form.short_desc_ru} onChange={handleChange} className='add_product_input'/>
       <textarea name="full_desc_ua" placeholder="Повний опис (укр)" value={form.full_desc_ua} onChange={handleChange} className='add_product_input' />
       <textarea name="full_desc_en" placeholder="Full description (en)" value={form.full_desc_en} onChange={handleChange} className='add_product_input' />
+      <textarea name="full_desc_ru" placeholder="Повний опис (ru)" value={form.full_desc_ru} onChange={handleChange} className='add_product_input'/>
       <input name="price" placeholder="Ціна" type="number" value={form.price} onChange={handleChange} required className='add_product_input' />
       <input name="code" placeholder="Код товару" value={form.code} onChange={handleChange} required className='add_product_input' />
 

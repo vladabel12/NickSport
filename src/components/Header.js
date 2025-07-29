@@ -68,6 +68,7 @@ const Header = ({ orders, onDelete }) => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    localStorage.setItem('language', lng);
     setLanguageMenuOpen(false);
   };
   const handleLogout = async () => {
@@ -92,6 +93,7 @@ const Header = ({ orders, onDelete }) => {
             <div className="language-menu">
               <div onClick={() => changeLanguage('ua')}>Українська</div>
               <div onClick={() => changeLanguage('en')}>English</div>
+              <div onClick={() => changeLanguage('ru')}>Русский</div>
             </div>
           )}
           {user ? (

@@ -29,7 +29,6 @@ export default function MyAccount({ user, onAdd }) {
     const fetchOrdersAndProducts = async () => {
       setLoading(true);
       try {
-        // 1. Завантажуємо замовлення користувача
         const ordersQuery = query(
           collection(db, "orders"),
           where("userId", "==", user.uid),
@@ -42,7 +41,6 @@ export default function MyAccount({ user, onAdd }) {
         }));
         setOrders(userOrders);
 
-        // 2. Збираємо унікальні id товарів із замовлень
         const productIdsSet = new Set();
         userOrders.forEach(order => {
           order.items?.forEach(item => {
@@ -51,9 +49,7 @@ export default function MyAccount({ user, onAdd }) {
         });
         const productIds = Array.from(productIdsSet);
 
-        // 3. Якщо товари є, підвантажуємо їх з колекції products
         if (productIds.length > 0) {
-          // Firestore не підтримує більше 10 у `in` запиті, тож ділимо на чанки по 10
           const chunkSize = 10;
           let allProducts = {};
           for (let i = 0; i < productIds.length; i += chunkSize) {
@@ -144,13 +140,25 @@ export default function MyAccount({ user, onAdd }) {
                       {product?.image && (
                         <img
                           src={product.image}
-                          alt={lang === 'uk' ? product.name_ua : product.name_en}
+                          alt={
+                            lang === 'ua'
+                              ? product?.name_ua
+                              : lang === 'ru'
+                              ? product?.name_ru
+                              : product?.name_en
+                          }
                           className="order_item_img"
                         />
                       )}
                       <div className="order_item_info">
                         <p>
-                          {lang === 'uk' ? product?.name_ua : product?.name_en || item.name_ua || item.name_en} (код: {item.code}) x{item.quantity}
+                          {
+                            lang === 'ua'
+                              ? product?.name_ua || item.name_ua
+                              : lang === 'ru'
+                              ? product?.name_ru || item.name_ru
+                              : product?.name_en || item.name_en
+                          } (код: {item.code}) x{item.quantity}
                         </p>
                         <p>{item.price * item.quantity}₴</p>
 
@@ -177,5 +185,6 @@ export default function MyAccount({ user, onAdd }) {
     </div>
   );
 }
+
 
 

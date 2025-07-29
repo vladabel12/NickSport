@@ -1,3 +1,4 @@
+// src/components/Categories.js
 import React, { useState, useRef, useEffect } from 'react';
 import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -6,14 +7,18 @@ import { db } from '../firebase';
 import { collection, onSnapshot, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import AddCategoryForm from './AddCategoryForm';
 import { FaTrash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Categories = ({ chooseCategory }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [addingSubTo, setAddingSubTo] = useState(null); // ключ категорії, куди додаємо підкатегорію
-  const [newSub, setNewSub] = useState({ name_ua: '', name_en: '' });
+  const [addingSubTo, setAddingSubTo] = useState(null);
+  const [newSub, setNewSub] = useState({ name_ua: '', name_en: '', name_ru: '' });
   const dropdownRef = useRef(null);
 
   const user = getAuth().currentUser;
@@ -33,7 +38,7 @@ const Categories = ({ chooseCategory }) => {
         setOpen(false);
         setOpenCategory(null);
         setAddingSubTo(null);
-        setNewSub({ name_ua: '', name_en: '' });
+        setNewSub({ name_ua: '', name_en: '', name_ru: '' });
       }
     }
     if (open) {
@@ -49,42 +54,77 @@ const Categories = ({ chooseCategory }) => {
   const toggleDropdown = () => setOpen(!open);
   const toggleSub = (key) => {
     if (openCategory === key) {
-      // Якщо вже відкрита, то закриваємо і форму додавання теж
       setOpenCategory(null);
       setAddingSubTo(null);
-      setNewSub({ name_ua: '', name_en: '' });
+      setNewSub({ name_ua: '', name_en: '', name_ru: '' });
     } else {
       setOpenCategory(key);
       setAddingSubTo(null);
-      setNewSub({ name_ua: '', name_en: '' });
+      setNewSub({ name_ua: '', name_en: '', name_ru: '' });
     }
   };
 
   const generateKey = (name) =>
     name.toLowerCase().trim().replace(/\s+/g, '-');
 
-  const handleDeleteCat = async (id) => {
-    if (!window.confirm('Видалити категорію?')) return;
-    try {
-      await deleteDoc(doc(db, 'categories', id));
-      alert('Категорію видалено');
-    } catch (error) {
-      alert('Помилка видалення категорії');
-      console.error(error);
-    }
+  const handleDeleteCat = (id) => {
+    confirmAlert({
+      title: 'Підтвердження видалення',
+      message: 'Ви дійсно хочете видалити цю категорію?',
+      buttons: [
+        {
+          label: 'Так',
+          onClick: async () => {
+            try {
+              await deleteDoc(doc(db, 'categories', id));
+              toast.success('Категорію видалено');
+            } catch (error) {
+              toast.error('Помилка видалення категорії');
+              console.error(error);
+            }
+          }
+        },
+        {
+          label: 'Скасувати',
+          onClick: () => {
+            toast.info("Видалення скасовано");
+          }
+        }
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
   };
 
-  const handleDeleteSubcategory = async (catId, subKey, subcategories) => {
-    if (!window.confirm('Видалити підкатегорію?')) return;
-    try {
-      const newSubs = subcategories.filter(s => s.key !== subKey);
-      const docRef = doc(db, 'categories', catId);
-      await updateDoc(docRef, { subcategories: newSubs });
-      alert('Підкатегорію видалено');
-    } catch (error) {
-      alert('Помилка видалення підкатегорії');
-      console.error(error);
-    }
+  const handleDeleteSubcategory = (catId, subKey, subcategories) => {
+    confirmAlert({
+      title: 'Підтвердження видалення',
+      message: 'Ви дійсно хочете видалити цю підкатегорію?',
+      buttons: [
+        {
+          label: 'Так',
+          onClick: async () => {
+            try {
+              const newSubs = subcategories.filter(s => s.key !== subKey);
+              const docRef = doc(db, 'categories', catId);
+              await updateDoc(docRef, { subcategories: newSubs });
+              toast.success('Підкатегорію видалено');
+            } catch (error) {
+              toast.error('Помилка видалення підкатегорії');
+              console.error(error);
+            }
+          }
+        },
+        {
+          label: 'Скасувати',
+          onClick: () => {
+            toast.info("Видалення скасовано");
+          }
+        }
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
   };
 
   const handleAddSubcategory = async (category) => {
@@ -101,17 +141,17 @@ const Categories = ({ chooseCategory }) => {
 
     const updatedSubs = [
       ...(category.subcategories || []),
-      { key, name_ua: newSub.name_ua, name_en: newSub.name_en }
+      { key, name_ua: newSub.name_ua, name_en: newSub.name_en, name_ru: newSub.name_ru }
     ];
 
     try {
       const docRef = doc(db, 'categories', category.id);
       await updateDoc(docRef, { subcategories: updatedSubs });
-      alert('Підкатегорію додано');
+      toast.success('Підкатегорію додано');
       setAddingSubTo(null);
-      setNewSub({ name_ua: '', name_en: '' });
+      setNewSub({ name_ua: '', name_en: '', name_ru: '' });
     } catch (error) {
-      alert('Помилка додавання підкатегорії');
+      toast.error('Помилка додавання підкатегорії');
       console.error(error);
     }
   };
@@ -139,14 +179,14 @@ const Categories = ({ chooseCategory }) => {
                   className="category-name with-sub"
                   onClick={() => toggleSub(cat.key)}
                 >
-                   {isAdmin && (
-                  <FaTrash
-                    className="delete-icon"
-                    style={{ cursor: 'pointer', marginLeft: '10px' }}
-                    onClick={(e) => { e.stopPropagation(); handleDeleteCat(cat.id); }}
-                    title="Видалити категорію"
-                  />
-                )}
+                  {isAdmin && (
+                    <FaTrash
+                      className="delete-icon"
+                      style={{ cursor: 'pointer', marginLeft: '10px' }}
+                      onClick={(e) => { e.stopPropagation(); handleDeleteCat(cat.id); }}
+                      title="Видалити категорію"
+                    />
+                  )}
                   {cat[`name_${i18n.language}`] || cat.name_ua}
                   <span className="arrow">{openCategory === cat.key ? '▴' : '▾'}</span>
                 </div>
@@ -161,22 +201,21 @@ const Categories = ({ chooseCategory }) => {
                         onClick={() => { chooseCategory(cat.key, sub.key); setOpen(false); setOpenCategory(null); }}
                       >
                         {isAdmin && (
-                        <FaTrash
-                          className="delete-icon"
-                          style={{ cursor: 'pointer', marginLeft: '10px' }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeleteSubcategory(cat.id, sub.key, cat.subcategories);
-                          }}
-                          title="Видалити підкатегорію"
-                        />
-                      )}
+                          <FaTrash
+                            className="delete-icon"
+                            style={{ cursor: 'pointer', marginLeft: '10px' }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteSubcategory(cat.id, sub.key, cat.subcategories);
+                            }}
+                            title="Видалити підкатегорію"
+                          />
+                        )}
                         {sub[`name_${i18n.language}`] || sub.name_ua}
                       </div>
                     </div>
                   ))}
 
-                  {/* Кнопка для додавання підкатегорії */}
                   {isAdmin && (
                     <>
                       {!addingSubTo || addingSubTo !== cat.key ? (
@@ -195,8 +234,12 @@ const Categories = ({ chooseCategory }) => {
                             placeholder="Назва EN"
                             value={newSub.name_en}
                             onChange={(e) => setNewSub({ ...newSub, name_en: e.target.value })} className='add_category_input'/>
+                          <input
+                            placeholder="Назва RU"
+                            value={newSub.name_ru}
+                            onChange={(e) => setNewSub({ ...newSub, name_ru: e.target.value })} className='add_category_input'/>
                           <button onClick={() => handleAddSubcategory(cat)} className='add_category_button add_sub_button'>Додати</button>
-                          <button onClick={() => { setAddingSubTo(null); setNewSub({ name_ua: '', name_en: '' }); }}className='add_category_button'>Скасувати</button>
+                          <button onClick={() => { setAddingSubTo(null); setNewSub({ name_ua: '', name_en: '', name_ru: '' }); }} className='add_category_button'>Скасувати</button>
                         </div>
                       )}
                     </>
@@ -212,3 +255,5 @@ const Categories = ({ chooseCategory }) => {
 };
 
 export default Categories;
+
+

@@ -24,11 +24,17 @@ export default function Checkout({ orders, setOrders }) {
     cod: 'cashOnDelivery',
   };
 
+  const getText = (item, field) => {
+    if (i18n.language === 'ua') return item[field + '_ua'] || '';
+    if (i18n.language === 'ru') return item[field + '_ru'] || item[field + '_ua'] || '';
+    return item[field + '_en'] || item[field + '_ua'] || '';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const orderSummary = orders.map((item) => {
-      const title = i18n.language === 'ua' ? item.name_ua : item.name_en;
+      const title = getText(item, 'name');
       return `${title} (код: ${item.code}) x${item.quantity} — ${item.price * item.quantity}₴`;
     }).join('\n');
 
@@ -91,7 +97,7 @@ export default function Checkout({ orders, setOrders }) {
           ) : (
             <div className="checkout_items">
               {orders.map((item) => {
-                const title = i18n.language === 'ua' ? item.name_ua : item.name_en;
+                const title = getText(item, 'name');
                 return (
                   <div key={item.id} className="checkout_item">
                     <img src={item.image} alt={title} className="checkout_img" />

@@ -6,8 +6,13 @@ function Order({ item, onDelete }) {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
 
-  // Вибираємо назву залежно від мови
-  const title = currentLang === 'ua' ? item.name_ua : item.name_en;
+  const getText = (field) => {
+    if (currentLang === 'ua') return item[field + '_ua'] || '';
+    if (currentLang === 'ru') return item[field + '_ru'] || item[field + '_ua'] || '';
+    return item[field + '_en'] || item[field + '_ua'] || '';
+  };
+
+  const title = getText('name');
 
   return (
     <div className='order-item'>
@@ -15,13 +20,8 @@ function Order({ item, onDelete }) {
       <h2>
         {title} {item.quantity > 1 && `(x${item.quantity})`}
       </h2>
-      <b>
-        {item.price * item.quantity}₴
-      </b>
-      <FaTrash
-        className='delete-icon'
-        onClick={() => onDelete(item.id)}
-      />
+      <b>{item.price * item.quantity}₴</b>
+      <FaTrash className='delete-icon' onClick={() => onDelete(item.id)} />
     </div>
   );
 }
