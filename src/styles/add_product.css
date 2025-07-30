@@ -1,5 +1,9 @@
 .main_buttons{
     display: flex;
+    margin-bottom: 15rem;
+}
+.inside_main_buttons{
+    display: flex;
 }
 .add_product_button{
     color: #777;

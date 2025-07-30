@@ -40,7 +40,7 @@ p, b, .footer,  .presentation::before {
     left: 15rem;
   }
   .presentation_desc{
-    top: 120rem;
+    top: 100rem;
     left: 15rem;
     font-size: 14rem;
   }
@@ -57,11 +57,12 @@ p, b, .footer,  .presentation::before {
     margin-right: 8rem;
     margin-bottom: 10rem;
   }
-  main{
+  .main_items{
+    justify-content: space-between;
     gap: 10rem;
   }
   .item{
-    width: 200rem;
+    width: calc(50% - 15rem);
     margin-bottom: 10rem;
   }
   .quantity-controls button{
@@ -208,15 +209,19 @@ p, b, .footer,  .presentation::before {
   button.add_button{
     padding: 15rem 100rem;
   }
+  .admin-layout .search-bar_wrapper {
+    order: -1; 
+    margin-bottom: 20rem;
+  }
+  .admin-layout{
+    flex-direction: column;
+    margin-bottom: 30rem;
+  }
 }
 
 @media (max-width: 600px) {
   .presentation {
     margin: 20rem 0;
-  }
-
-  .item {
-    width: calc(45% - 15rem); 
   }
 
   main {

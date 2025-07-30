@@ -1,0 +1,17 @@
+.search-bar_wrapper{
+    width: 100%;
+    max-width: 320rem;
+    max-height: 40rem;
+    padding: 5rem 10rem;
+    display: flex;
+    justify-content: start;
+    gap: 10rem;
+    align-items: center;
+    border-radius: 5rem;
+    border: 1px solid #ccc;
+    
+}
+.search-bar{
+    font-size: 20rem;
+    width: 100%;
+}

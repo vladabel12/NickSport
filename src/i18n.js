@@ -115,6 +115,7 @@ const resources = {
       NoOrders: "You have no orders yet",
       NoDate: "No date",
       Loading: "Loading...",
+      searchPlaceholder: "Search by name or code...",
     }
   },
   ua: {
@@ -229,6 +230,7 @@ const resources = {
       NoOrders: "У вас ще немає замовлень",
       NoDate: "Немає дати",
       Loading: "Завантаження...",
+      searchPlaceholder: "Пошук за назвою або кодом...",
     }
   },
   ru: {
@@ -335,6 +337,7 @@ const resources = {
       NoOrders: "У вас еще нет заказов",
       NoDate: "Нет даты",
       Loading: "Загрузка...",
+      searchPlaceholder: "Поиск по названию или коду...",
     }
   }
 };

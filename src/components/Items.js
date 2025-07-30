@@ -3,7 +3,7 @@ import Item from './Item';
 
 function Items({ items, onAdd, onShowItem, onDelete, isAdmin }) {
   return (
-    <main>
+    <main className='main_items'>
       {items.map((el) => (
         <Item 
           key={el.id} 

@@ -26,6 +26,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast } from 'react-toastify';
+import SearchBar from "./components/SearchBar";
+
 
 
 
@@ -40,6 +42,29 @@ function App() {
   const [showAddForm, setShowAddForm] = useState(false);
   const itemsPerPage = 8;
   const { t } = useTranslation();
+
+  const handleSearch = (searchTerm) => {
+  if (!searchTerm) {
+    setCurrentItems(items);
+    setCurrentPage(1);
+    return;
+  }
+
+  const filtered = items.filter((item) => {
+    const nameMatches =
+      item.name_ua?.toLowerCase().includes(searchTerm) ||
+      item.name_en?.toLowerCase().includes(searchTerm) ||
+      item.name_ru?.toLowerCase().includes(searchTerm);
+
+    const codeMatches = item.code?.toLowerCase().includes(searchTerm);
+
+    return nameMatches || codeMatches;
+  });
+
+  setCurrentItems(filtered);
+  setCurrentPage(1);
+};
+
 
   const deleteProduct = async (id) => {
   confirmAlert({
@@ -169,13 +194,16 @@ function App() {
             path="/"
             element={
               <>
-                <div className="main_buttons">
-                  {user?.email === "skhool2205@gmail.com" && (
+                <div className={`main_buttons ${user?.email === "skhool2205@gmail.com" ? 'admin-layout' : 'user-layout'}`}>
+                  <div className="inside_main_buttons">
+                    {user?.email === "skhool2205@gmail.com" && (
                     <button className="categories-button add_product_button" onClick={() => setShowAddForm(prev => !prev)} >
                       {showAddForm ? "Закрити форму" : "Додати товар"}
                     </button>
                   )}
                   <Categories chooseCategory={chooseCategory} />
+                  </div>
+                  <SearchBar onSearch={handleSearch} />
                 </div>
                 {showAddForm && <AddProductForm onClose={() => setShowAddForm(false)} />}
 

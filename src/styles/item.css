@@ -110,3 +110,7 @@ b, .full-item b {
   transform: scale(1.2);
   color: #ff0000;
 }
+.main_items{
+  display: flex;
+  gap: 30rem;
+}
