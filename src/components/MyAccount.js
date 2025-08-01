@@ -14,7 +14,7 @@ export default function MyAccount({ user, onAdd }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quantities, setQuantities] = useState({});
-  const [productsData, setProductsData] = useState({}); // id -> product data
+  const [productsData, setProductsData] = useState({});
 
   const navigate = useNavigate();
 
@@ -108,9 +108,7 @@ export default function MyAccount({ user, onAdd }) {
     <div className="my_account">
       <div className="my_account_header">
         <h1>{t('MyAccount')}</h1>
-        <button onClick={handleLogout} className="logout_button">
-          {t('LogOut')}
-        </button>
+        <button onClick={handleLogout} className="logout_button">{t('LogOut')}</button>
       </div>
       <button type="button" className="logout_button go_home">
         <Link to="/" className='go_back_button'>{t('GoBackHome')}</Link>
@@ -138,40 +136,19 @@ export default function MyAccount({ user, onAdd }) {
                   return (
                     <div key={item.id} className="order_item">
                       {product?.image && (
-                        <img
-                          src={product.image}
-                          alt={
-                            lang === 'ua'
-                              ? product?.name_ua
-                              : lang === 'ru'
-                              ? product?.name_ru
-                              : product?.name_en
-                          }
-                          className="order_item_img"
-                        />
+                        <img src={product.image} alt={ lang === 'ua' ? product?.name_ua : lang === 'ru' ? product?.name_ru : product?.name_en} className="order_item_img"/>
                       )}
                       <div className="order_item_info">
                         <p>
                           {
-                            lang === 'ua'
-                              ? product?.name_ua || item.name_ua
-                              : lang === 'ru'
-                              ? product?.name_ru || item.name_ru
-                              : product?.name_en || item.name_en
+                            lang === 'ua' ? product?.name_ua || item.name_ua : lang === 'ru' ? product?.name_ru || item.name_ru : product?.name_en || item.name_en
                           } (код: {item.code}) x{item.quantity}
                         </p>
                         <p>{item.price * item.quantity}₴</p>
 
                         <div className="repeat_order">
-                          <QuantitySelector
-                            onChange={(value) => handleQuantityChange(item.id, value)}
-                          />
-                          <button
-                            onClick={() => repeatOrder(item)}
-                            className="repeat_button"
-                          >
-                            {t('RepeatOrder')}
-                          </button>
+                          <QuantitySelector onChange={(value) => handleQuantityChange(item.id, value)}/>
+                          <button onClick={() => repeatOrder(item)} className="repeat_button"> {t('RepeatOrder')}</button>
                         </div>
                       </div>
                     </div>

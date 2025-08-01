@@ -1,4 +1,3 @@
-// src/components/Categories.js
 import React, { useState, useRef, useEffect } from 'react';
 import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -69,25 +68,25 @@ const Categories = ({ chooseCategory }) => {
 
   const handleDeleteCat = (id) => {
     confirmAlert({
-      title: 'Підтвердження видалення',
-      message: 'Ви дійсно хочете видалити цю категорію?',
+      title: (t('ConfirmationOfDeletionTitle')),
+      message: (t('ConfirmationOfDeletionDesc')),
       buttons: [
         {
-          label: 'Так',
+          label: (t('yes')),
           onClick: async () => {
             try {
               await deleteDoc(doc(db, 'categories', id));
-              toast.success('Категорію видалено');
+              toast.success(t('CategoryDeleted'));
             } catch (error) {
-              toast.error('Помилка видалення категорії');
+              toast.error(t('CategoryDeletionError'));
               console.error(error);
             }
           }
         },
         {
-          label: 'Скасувати',
+          label: (t('cancel')),
           onClick: () => {
-            toast.info("Видалення скасовано");
+            toast.info(t('DeletionCanceled'));
           }
         }
       ],
@@ -98,27 +97,27 @@ const Categories = ({ chooseCategory }) => {
 
   const handleDeleteSubcategory = (catId, subKey, subcategories) => {
     confirmAlert({
-      title: 'Підтвердження видалення',
-      message: 'Ви дійсно хочете видалити цю підкатегорію?',
+      title: (t('ConfirmationOfDeletionTitle')),
+      message: (t('ConfirmationOfDeletionSubDesc')),
       buttons: [
         {
-          label: 'Так',
+          label: (t('yes')),
           onClick: async () => {
             try {
               const newSubs = subcategories.filter(s => s.key !== subKey);
               const docRef = doc(db, 'categories', catId);
               await updateDoc(docRef, { subcategories: newSubs });
-              toast.success('Підкатегорію видалено');
+              toast.success(t('SubcategoryDeleted'));
             } catch (error) {
-              toast.error('Помилка видалення підкатегорії');
+              toast.error(t('ErrorDeletingSubcategory'));
               console.error(error);
             }
           }
         },
         {
-          label: 'Скасувати',
+          label: (t('cancel')),
           onClick: () => {
-            toast.info("Видалення скасовано");
+            toast.info(t('DeletionCanceled'));
           }
         }
       ],
@@ -129,13 +128,13 @@ const Categories = ({ chooseCategory }) => {
 
   const handleAddSubcategory = async (category) => {
     if (!newSub.name_ua || !newSub.name_en) {
-      alert('Будь ласка, заповніть всі поля підкатегорії');
+      alert(t('FillAllFieldsSubcategory'));
       return;
     }
     const key = generateKey(newSub.name_ua);
 
     if (category.subcategories?.some(s => s.key === key)) {
-      alert('Підкатегорія з таким ключем вже існує');
+      alert(t('SubcategoryWithKeyExists'));
       return;
     }
 
@@ -147,45 +146,33 @@ const Categories = ({ chooseCategory }) => {
     try {
       const docRef = doc(db, 'categories', category.id);
       await updateDoc(docRef, { subcategories: updatedSubs });
-      toast.success('Підкатегорію додано');
+      toast.success(t('SubcategoryAdded'));
       setAddingSubTo(null);
       setNewSub({ name_ua: '', name_en: '', name_ru: '' });
     } catch (error) {
-      toast.error('Помилка додавання підкатегорії');
+      toast.error(t('ErrorSubcategoryAdded'));
       console.error(error);
     }
   };
 
   return (
     <div className="categories" ref={dropdownRef}>
-      <div className="categories-button" onClick={toggleDropdown}>
-        {t('categories')}
-      </div>
+      <div className="categories-button" onClick={toggleDropdown}>{t('categories')}</div>
       {open && (
         <div className="categories-dropdown">
           {isAdmin && <AddCategoryForm />}
           <div className="categories-item">
             <div className="category-header">
-              <div className="category-name" onClick={() => { chooseCategory('all'); setOpen(false); setOpenCategory(null); }}>
-                {t('all')}
-              </div>
+              <div className="category-name" onClick={() => { chooseCategory('all'); setOpen(false); setOpenCategory(null); }}>{t('all')}</div>
             </div>
           </div>
 
           {categories.map(cat => (
             <div key={cat.id} className="categories-item">
               <div className="category-header">
-                <div
-                  className="category-name with-sub"
-                  onClick={() => toggleSub(cat.key)}
-                >
+                <div className="category-name with-sub" onClick={() => toggleSub(cat.key)}>
                   {isAdmin && (
-                    <FaTrash
-                      className="delete-icon"
-                      style={{ cursor: 'pointer', marginLeft: '10px' }}
-                      onClick={(e) => { e.stopPropagation(); handleDeleteCat(cat.id); }}
-                      title="Видалити категорію"
-                    />
+                    <FaTrash className="delete-icon" onClick={(e) => { e.stopPropagation(); handleDeleteCat(cat.id); }} title={t('DeleteCategory')}/>
                   )}
                   {cat[`name_${i18n.language}`] || cat.name_ua}
                   <span className="arrow">{openCategory === cat.key ? '▴' : '▾'}</span>
@@ -196,20 +183,9 @@ const Categories = ({ chooseCategory }) => {
                 <div className="subcategories">
                   {cat.subcategories?.map(sub => (
                     <div key={sub.key} className="subcategory-item">
-                      <div
-                        className="subcategory-name"
-                        onClick={() => { chooseCategory(cat.key, sub.key); setOpen(false); setOpenCategory(null); }}
-                      >
+                      <div className="subcategory-name" onClick={() => { chooseCategory(cat.key, sub.key); setOpen(false); setOpenCategory(null); }}>
                         {isAdmin && (
-                          <FaTrash
-                            className="delete-icon"
-                            style={{ cursor: 'pointer', marginLeft: '10px' }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDeleteSubcategory(cat.id, sub.key, cat.subcategories);
-                            }}
-                            title="Видалити підкатегорію"
-                          />
+                          <FaTrash className="delete-icon"  onClick={(e) => {  e.stopPropagation();  handleDeleteSubcategory(cat.id, sub.key, cat.subcategories);}} title={t('DeleteSubcategory')} />
                         )}
                         {sub[`name_${i18n.language}`] || sub.name_ua}
                       </div>
@@ -219,27 +195,14 @@ const Categories = ({ chooseCategory }) => {
                   {isAdmin && (
                     <>
                       {!addingSubTo || addingSubTo !== cat.key ? (
-                        <button
-                          onClick={() => setAddingSubTo(cat.key)} className='add_category_button add_subcategory'
-                        >
-                          + Додати підкатегорію
-                        </button>
+                        <button onClick={() => setAddingSubTo(cat.key)} className='add_category_button add_subcategory' > {t('AddSubcategory')} </button>
                       ) : (
                         <div>
-                          <input
-                            placeholder="Назва UA"
-                            value={newSub.name_ua}
-                            onChange={(e) => setNewSub({ ...newSub, name_ua: e.target.value })} className='add_category_input'/>
-                          <input
-                            placeholder="Назва EN"
-                            value={newSub.name_en}
-                            onChange={(e) => setNewSub({ ...newSub, name_en: e.target.value })} className='add_category_input'/>
-                          <input
-                            placeholder="Назва RU"
-                            value={newSub.name_ru}
-                            onChange={(e) => setNewSub({ ...newSub, name_ru: e.target.value })} className='add_category_input'/>
-                          <button onClick={() => handleAddSubcategory(cat)} className='add_category_button add_sub_button'>Додати</button>
-                          <button onClick={() => { setAddingSubTo(null); setNewSub({ name_ua: '', name_en: '', name_ru: '' }); }} className='add_category_button'>Скасувати</button>
+                          <input placeholder={t('TitleUa')} value={newSub.name_ua} onChange={(e) => setNewSub({ ...newSub, name_ua: e.target.value })} className='add_category_input'/>
+                          <input placeholder={t('TitleEn')} value={newSub.name_en} onChange={(e) => setNewSub({ ...newSub, name_en: e.target.value })} className='add_category_input'/>
+                          <input placeholder={t('TitleRu')} value={newSub.name_ru} onChange={(e) => setNewSub({ ...newSub, name_ru: e.target.value })} className='add_category_input'/>
+                          <button onClick={() => handleAddSubcategory(cat)} className='add_category_button add_sub_button'>{t('Add')}</button>
+                          <button onClick={() => { setAddingSubTo(null); setNewSub({ name_ua: '', name_en: '', name_ru: '' }); }} className='add_category_button'>{t('cancel')}</button>
                         </div>
                       )}
                     </>

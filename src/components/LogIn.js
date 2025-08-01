@@ -69,13 +69,7 @@ export default function LogIn() {
 
           <div className='form_group'>
             <label htmlFor="email">{t('email')}</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
           </div>
 
           <div className='form_group password_group'>

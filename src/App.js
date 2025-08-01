@@ -16,22 +16,19 @@ import MyAccount from "./components/MyAccount";
 import Checkout from "./components/Checkout";
 import ThankYou from "./components/ThankYou";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "./firebase";  
+import { auth, db } from "./firebase";
 import AddProductForm from "./components/AddProductForm";
-import { collection, onSnapshot } from "firebase/firestore";
-import { doc, deleteDoc } from "firebase/firestore";
+import { collection, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import CatalogPage from "./components/CatalogPage";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { toast } from 'react-toastify';
 import SearchBar from "./components/SearchBar";
 
 
-
-
 function App() {
+  const [searchTerm, setSearchTerm] = useState('');
   const [items, setItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [user, setUser] = useState(null);
@@ -43,65 +40,46 @@ function App() {
   const itemsPerPage = 8;
   const { t } = useTranslation();
 
-  const handleSearch = (searchTerm) => {
-  if (!searchTerm) {
-    setCurrentItems(items);
-    setCurrentPage(1);
-    return;
-  }
-
-  const filtered = items.filter((item) => {
-    const nameMatches =
-      item.name_ua?.toLowerCase().includes(searchTerm) ||
-      item.name_en?.toLowerCase().includes(searchTerm) ||
-      item.name_ru?.toLowerCase().includes(searchTerm);
-
-    const codeMatches = item.code?.toLowerCase().includes(searchTerm);
-
-    return nameMatches || codeMatches;
-  });
-
-  setCurrentItems(filtered);
-  setCurrentPage(1);
-};
-
-
   const deleteProduct = async (id) => {
-  confirmAlert({
-    title: 'Підтвердження видалення',
-    message: 'Ви дійсно хочете видалити цей товар?',
-    buttons: [
-      {
-        label: 'Так',
-        onClick: async () => {
-          try {
-            await deleteDoc(doc(db, "products", id));
-            toast.success("Товар видалено!");
-          } catch (err) {
-            toast.error("Помилка видалення");
-            console.error(err);
+    if (!window.confirm("Видалити цей товар?")) return;
+    try {
+      await deleteDoc(doc(db, "products", id));
+      alert("✅ Товар видалено!");
+    } catch (err) {
+      alert("❌ Помилка видалення");
+      console.error(err);
+    }
+
+    confirmAlert({
+      title: 'Підтвердження видалення',
+      message: 'Ви дійсно хочете видалити цей товар?',
+      buttons: [
+        {
+          label: 'Так',
+          onClick: async () => {
+            try {
+              await deleteDoc(doc(db, "products", id));
+              toast.success("Товар видалено!");
+            } catch (err) {
+              toast.error("Помилка видалення");
+              console.error(err);
+            }
+          }
+        },
+        {
+          label: 'Скасувати',
+          onClick: () => {
+            toast.info("Видалення скасовано");
           }
         }
-      },
-      {
-        label: 'Скасувати',
-        onClick: () => {
-          toast.info("Видалення скасовано");
-        }
-      }
-    ]
-  });
-};
+      ]
+    });
+  };
 
-
-  // Автоматичне оновлення товарів з Firestore
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "products"), (snapshot) => {
-      const products = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      console.log("Products from Firestore:", products); // для діагностики
+      const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      console.log("Products from Firestore:", products);
       setItems(products);
     });
     return () => unsubscribe();
@@ -117,9 +95,7 @@ function App() {
   useEffect(() => {
     if (user) {
       const savedOrders = localStorage.getItem(`orders_${user.uid}`);
-      if (savedOrders) {
-        setOrders(JSON.parse(savedOrders));
-      }
+      if (savedOrders) setOrders(JSON.parse(savedOrders));
     } else {
       setOrders([]);
     }
@@ -142,43 +118,48 @@ function App() {
   };
 
   const chooseCategory = (category, subcategory = null) => {
-  setCurrentPage(1);
-  if (category === 'all') {
-    setCurrentItems(items);
-    return;
-  }
-  if (subcategory) {
-    setCurrentItems(items.filter(el => el.category === category && el.subcategory === subcategory));
-  } else {
-    setCurrentItems(items.filter(el => el.category === category));
-  }
-};
+    setCurrentPage(1);
+    if (category === 'all') {
+      setCurrentItems(items);
+      return;
+    }
+    if (subcategory) {
+      setCurrentItems(items.filter(el => el.category === category && el.subcategory === subcategory));
+    } else {
+      setCurrentItems(items.filter(el => el.category === category));
+    }
+  };
 
   const deleteOrder = (id) => {
     setOrders(prevOrders => prevOrders.filter(item => item.id !== id));
   };
 
   const addToOrder = (item, qty = 1) => {
-  const existingItemIndex = orders.findIndex(orderItem => orderItem.id === item.id);
-  const fullItem = items.find(el => el.id === item.id);
-
-  if (existingItemIndex !== -1) {
-    const updatedOrders = [...orders];
-    updatedOrders[existingItemIndex].quantity += qty; // додаємо кількість
-    setOrders(updatedOrders);
-  } else {
-    setOrders([...orders, { ...fullItem, quantity: qty }]); // додаємо з qty
-  }
-};
-
+    const existingItemIndex = orders.findIndex(orderItem => orderItem.id === item.id);
+    const fullItem = items.find(el => el.id === item.id);
+    if (existingItemIndex !== -1) {
+      const updatedOrders = [...orders];
+      updatedOrders[existingItemIndex].quantity += qty;
+      setOrders(updatedOrders);
+    } else {
+      setOrders([...orders, { ...fullItem, quantity: qty }]);
+    }
+  };
 
   useEffect(() => {
     setCurrentItems(items);
   }, [items]);
 
-  const totalPages = Math.ceil(currentItems.length / itemsPerPage);
+  const filteredItems = currentItems.filter(item =>
+  item.name_ua.toLowerCase().includes(searchTerm) ||
+  item.name_en.toLowerCase().includes(searchTerm) ||
+  (item.code && item.code.toLowerCase().includes(searchTerm))
+);
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const visibleItems = currentItems.slice(startIndex, startIndex + itemsPerPage);
+  const visibleItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+
 
   const goToPage = (pageNum) => {
     if (pageNum >= 1 && pageNum <= totalPages) setCurrentPage(pageNum);
@@ -188,62 +169,24 @@ function App() {
     <Router>
       <div className="wrapper">
         <Header orders={orders} onDelete={deleteOrder} />
-
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <div className={`main_buttons ${user?.email === "skhool2205@gmail.com" ? 'admin-layout' : 'user-layout'}`}>
-                  <div className="inside_main_buttons">
-                    {user?.email === "skhool2205@gmail.com" && (
-                    <button className="categories-button add_product_button" onClick={() => setShowAddForm(prev => !prev)} >
-                      {showAddForm ? "Закрити форму" : "Додати товар"}
-                    </button>
-                  )}
-                  <Categories chooseCategory={chooseCategory} />
-                  </div>
-                  <SearchBar onSearch={handleSearch} />
-                </div>
-                {showAddForm && <AddProductForm onClose={() => setShowAddForm(false)} />}
-
-                <Items
-                  onShowItem={onShowItem}
-                  items={visibleItems}
-                  onAdd={addToOrder}
-                  onDelete={deleteProduct}
-                  isAdmin={user?.email === "skhool2205@gmail.com"}
-                />
-
-                <div className="pagination">
-                  <button
-                    className="pagination_button"
-                    onClick={() => goToPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    {t('prev')}
-                  </button>
-                  <span className="pagination_page_of">
-                    {t('page')} {currentPage} {t('of')} {totalPages}
-                  </span>
-                  <button
-                    className="pagination_button"
-                    onClick={() => goToPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                  >
-                    {t('next')}
-                  </button>
-                </div>
-
-                {showFullItem && fullItem && (
-                  <ShowFullItem
-                    item={fullItem}
-                    onAdd={addToOrder}
-                    onShowItem={onShowItem}
-                  />
-                )}
-              </>
-            }
+          <Route path="/" element={ <>
+            <div className={`main_buttons ${user?.email === "skhool2205@gmail.com" ? "admin-layout" : "user-layout"}`}> {user?.email === "skhool2205@gmail.com" && (
+              <div className="inside_main_buttons">
+                <button className="categories-button add_product_button" onClick={() => setShowAddForm(prev => !prev)}> {showAddForm ? t('CloseForm') : t('AddProduct')}</button>
+                <Categories chooseCategory={chooseCategory} />
+              </div>
+              )}
+              <SearchBar onSearch={setSearchTerm} />
+            </div>
+            {showAddForm && <AddProductForm onClose={() => setShowAddForm(false)} />}
+            <Items onShowItem={onShowItem} items={visibleItems} onAdd={addToOrder} onDelete={deleteProduct} isAdmin={user?.email === "skhool2205@gmail.com"}/>
+            <div className="pagination">
+              <button className="pagination_button" onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}> {t('prev')}</button>
+              <span className="pagination_page_of">{t('page')} {currentPage} {t('of')} {totalPages}</span>
+              <button className="pagination_button" onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>{t('next')}</button>
+            </div>
+            {showFullItem && fullItem && ( <ShowFullItem item={fullItem} onAdd={addToOrder} onShowItem={onShowItem} />)}</>}
           />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contacts" element={<Contacts />} />
@@ -256,19 +199,8 @@ function App() {
           <Route path="/thank_you" element={<ThankYou />} />
           <Route path="/catalog" element={<CatalogPage />} />
         </Routes>
-
         <Footer />
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
+        <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover theme="light"/>
       </div>
     </Router>
   );

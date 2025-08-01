@@ -5,14 +5,7 @@ function Items({ items, onAdd, onShowItem, onDelete, isAdmin }) {
   return (
     <main className='main_items'>
       {items.map((el) => (
-        <Item 
-          key={el.id} 
-          item={el} 
-          onAdd={onAdd} 
-          onShowItem={onShowItem}
-          onDelete={onDelete}
-          isAdmin={isAdmin}
-        />
+        <Item  key={el.id} item={el} onAdd={onAdd} onShowItem={onShowItem} onDelete={onDelete} isAdmin={isAdmin}/>
       ))}
     </main>
   );

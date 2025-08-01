@@ -25,7 +25,7 @@ function AddProductForm({ onClose }) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
-  const API_KEY = 'cb820140e0d4aa4d1339df6dd58891b8'; // ImgBB ключ
+  const API_KEY = 'cb820140e0d4aa4d1339df6dd58891b8';
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -118,7 +118,7 @@ function AddProductForm({ onClose }) {
       });
       setFile(null);
 
-      if (onClose) onClose(); // ⬅️ автоматично закриває форму
+      if (onClose) onClose();
     } catch (error) {
       toast.error('Помилка додавання');
       console.error(error);

@@ -9,7 +9,6 @@ function Item({ item, onAdd, onShowItem, onDelete, isAdmin }) {
   const [quantity, setQuantity] = useState("1");
   const currentLang = i18n.language;
 
-  // Функція для отримання тексту з урахуванням мови, fallback на укр або англ
   const getText = (field) => {
     if (currentLang === 'ua') return item[field + '_ua'] || '';
     if (currentLang === 'ru') return item[field + '_ru'] || item[field + '_ua'] || '';
@@ -26,11 +25,7 @@ function Item({ item, onAdd, onShowItem, onDelete, isAdmin }) {
 
   return (
     <div className="item">
-      <img
-        src={item.image}
-        alt={getText('name')}
-        onClick={() => onShowItem(item)}
-      />
+      <img src={item.image} alt={getText('name')} onClick={() => onShowItem(item)}/>
       <h2>{getText('name')}</h2>
       <p>{getText('short_desc')}</p>
       <b className="item-price">{item.price}₴</b>
@@ -38,14 +33,9 @@ function Item({ item, onAdd, onShowItem, onDelete, isAdmin }) {
 
       <div className="item-bottom">
         <QuantitySelector onChange={setQuantity} />
-        <div className={`add-to-cart ${added ? 'added' : ''}`} onClick={handleAdd}>
-          {added ? t('added') : t('buy')}
-        </div>
+        <div className={`add-to-cart ${added ? 'added' : ''}`} onClick={handleAdd}>{added ? t('added') : t('buy')}</div>
         {isAdmin && (
-          <FaTrash
-            className="delete-icon"
-            onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
-          />
+          <FaTrash className="delete-icon" onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}/>
         )}
       </div>
     </div>

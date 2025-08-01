@@ -58,25 +58,13 @@ export default function CreateAccount() {
 
           <div className='form_group'>
             <label htmlFor="email">{t('email')}</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
           <div className='form_group password_group'>
             <label htmlFor="password">{t('password')}</label>
             <div className="password_wrapper">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               <span className="password_toggle" onClick={() => setShowPassword(prev => !prev)}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
@@ -85,17 +73,8 @@ export default function CreateAccount() {
 
           <button type="submit">{t('createAccount')}</button>
 
-          <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="google_button"
-          >
-            {t('continueWithGoogle')}
-          </button>
-
-          <p>
-            {t('alreadyHaveAccount')} <Link to="/log_in">{t('LogIn')}</Link>
-          </p>
+          <button type="button" onClick={handleGoogleLogin} className="google_button">{t('continueWithGoogle')}</button>
+          <p> {t('alreadyHaveAccount')} <Link to="/log_in">{t('LogIn')}</Link></p>
         </form>
       </div>
     </div>

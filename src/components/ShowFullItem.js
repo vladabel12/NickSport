@@ -9,7 +9,6 @@ function ShowFullItem({ item, onAdd, onShowItem }) {
 
   const currentLang = i18n.language;
 
-  // Функція вибору тексту згідно з мовою
   const getText = (field) => {
     if (currentLang === 'ua') return item[field + '_ua'] || '';
     if (currentLang === 'ru') return item[field + '_ru'] || item[field + '_ua'] || '';
@@ -37,19 +36,12 @@ function ShowFullItem({ item, onAdd, onShowItem }) {
         <div>
           <img src={item.image} alt={getText('name')} />
           <h2>{getText('name')}</h2>
-          <div style={{ whiteSpace: 'pre-wrap', marginBottom: '1rem' }}>
-            {getText('full_desc')}
-          </div>
+          <div style={{ whiteSpace: 'pre-wrap', marginBottom: '1rem' }}>{getText('full_desc')}</div>
           <b>{item.price}₴</b>
           <p className="item-code">{t('productCode')}: {item.code}</p>
           <div className='item-bottom'>
             <QuantitySelector onChange={setQuantity} />
-            <div
-              className={`add-to-cart ${added ? 'added' : ''}`}
-              onClick={handleAdd}
-            >
-              {added ? t('added') : t('buy')}
-            </div>
+            <div className={`add-to-cart ${added ? 'added' : ''}`} onClick={handleAdd} > {added ? t('added') : t('buy')}</div>
           </div>
         </div>
       </div>

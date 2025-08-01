@@ -19,7 +19,7 @@ export default function Contacts() {
     )
     .then(() => {
       navigate('/thank_you');
-      e.target.reset(); // очищення форми
+      e.target.reset();
     })
     .catch(() => {
       alert('Сталася помилка. Спробуйте ще раз.');

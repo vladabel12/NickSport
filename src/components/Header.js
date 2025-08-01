@@ -24,8 +24,8 @@ const ShowOrders = ({ orders, onDelete }) => {
 
 const Header = ({ orders, onDelete }) => {
   const handleCheckout = () => {
-    setCartOpen(false);      // Закриває корзину
-    navigate('/checkout');   // Переходить на сторінку оформлення
+    setCartOpen(false);      
+    navigate('/checkout');  
   };
 
   const [cartOpen, setCartOpen] = useState(false);
@@ -46,18 +46,14 @@ const Header = ({ orders, onDelete }) => {
     return () => unsubscribe();
   }, []);
 
-  // Global click handler to close menus
   useEffect(() => {
     function handleClickOutside(event) {
-      // Basket
       if (cartOpen && !event.target.closest('.shop-cart') && !event.target.closest('.cart-icon-wrapper')) {
         setCartOpen(false);
       }
-      // Language menu
       if (languageMenuOpen && !event.target.closest('.language-menu') && !event.target.closest('.globe-icon')) {
         setLanguageMenuOpen(false);
       }
-      // Burger menu
       if (menuOpen && !event.target.closest('.side-menu') && !event.target.closest('.burger-icon')) {
         setMenuOpen(false);
       }
@@ -80,15 +76,12 @@ const Header = ({ orders, onDelete }) => {
     <header>
       <div className="header_top">
         <span className='logo'>NickSport</span>
-        {/* Бургер і хрестик */}
         <div className="header-icons">
           <div className="cart-icon-wrapper" onClick={() => setCartOpen(!cartOpen)}>
             <FaShoppingCart className={`shop-cart-button ${cartOpen ? 'active' : ''}`} />
             {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
           </div>
-
           <FaGlobe className="globe-icon" onClick={() => setLanguageMenuOpen(!languageMenuOpen)} />
-
           {languageMenuOpen && (
             <div className="language-menu">
               <div onClick={() => changeLanguage('ua')}>Українська</div>
@@ -108,7 +101,6 @@ const Header = ({ orders, onDelete }) => {
           ) : (
             <Link to="/create_account"><FaUser className="user_icon" /></Link>
           )}
-
           <FaBars className={`burger-icon ${menuOpen ? 'hide' : ''}`} onClick={() => setMenuOpen(true)}/>
           <FaTimes className={`close-icon ${menuOpen ? 'show' : ''}`} onClick={() => setMenuOpen(false)} />
         </div>
@@ -125,8 +117,6 @@ const Header = ({ orders, onDelete }) => {
             )}
           </div>
         )}
-
-        {/* Меню зправа */}
         <div className={`side-menu ${menuOpen ? 'open' : ''}`}>
           <ul>
             <li><Link to="/" onClick={() => setMenuOpen(false)}>{t('home')}</Link></li>

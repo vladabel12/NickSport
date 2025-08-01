@@ -22,7 +22,6 @@
   transform: scale(1.1);
 }
 
-/* Випадаюче меню */
 .categories-dropdown {
   position: absolute;
   background: #fff;
@@ -75,4 +74,7 @@
   color: #68875d;
   text-decoration: underline;
 }
-
+.delete-icon{
+  cursor: pointer;
+  margin-left: 10rem;
+}

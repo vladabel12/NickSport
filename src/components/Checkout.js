@@ -89,8 +89,6 @@ export default function Checkout({ orders, setOrders }) {
     <div className="checkout_container">
       <h1 className="checkout_title">{t('YourOrder')}</h1>
       <div className="checkout_main">
-
-        {/* LEFT SIDE */}
         <div className="checkout_left">
           {orders.length === 0 ? (
             <p>{t('cart_empty')}</p>
@@ -114,8 +112,6 @@ export default function Checkout({ orders, setOrders }) {
             </div>
           )}
         </div>
-
-        {/* RIGHT SIDE */}
         <div className="checkout_right">
           <form className="checkout_form" ref={formRef} onSubmit={handleSubmit}>
             <h3 className="checkout_form_title">1. {t('contactDetails')}</h3>
@@ -169,24 +165,14 @@ export default function Checkout({ orders, setOrders }) {
             {deliveryType === 'department' && (
               <div className="form_field">
                 <label className='checkout_label'>{postType === 'novaPost' ? t('postOffice') : t('postAddress')}</label>
-                <input
-                  type="text"
-                  name="postDetails"
-                  placeholder={postType === 'novaPost' ? t('enterBranch') : t('enterAddress')}
-                  required
-                />
+                <input type="text" name="postDetails" placeholder={postType === 'novaPost' ? t('enterBranch') : t('enterAddress')} required />
               </div>
             )}
 
             {deliveryType === 'parcelLocker' && (
               <div className="form_field">
                 <label className='checkout_label'>{t('parcelLocker')}</label>
-                <input
-                  type="text"
-                  name="parcelLocker"
-                  required
-                  placeholder={t('enterParcelLocker')}
-                />
+                <input type="text" name="parcelLocker" required placeholder={t('enterParcelLocker')} />
               </div>
             )}
 
@@ -210,25 +196,11 @@ export default function Checkout({ orders, setOrders }) {
             <h3 className="checkout_form_title">3. {t('payment')}</h3>
             <div className="checkout_row">
               <label className="custom-radio">
-                <input
-                  type="radio"
-                  name="payment"
-                  value="card"
-                  checked={paymentMethod === 'card'}
-                  onChange={() => setPaymentMethod('card')}
-                  required
-                />
+                <input type="radio" name="payment" value="card" checked={paymentMethod === 'card'} onChange={() => setPaymentMethod('card')} required />
                 <span className="radio-circle radio-green"></span> {t('payByCard')}
               </label>
               <label className="custom-radio">
-                <input
-                  type="radio"
-                  name="payment"
-                  value="cod"
-                  checked={paymentMethod === 'cod'}
-                  onChange={() => setPaymentMethod('cod')}
-                  required
-                />
+                <input type="radio" name="payment" value="cod" checked={paymentMethod === 'cod'} onChange={() => setPaymentMethod('cod')} required />
                 <span className="radio-circle radio-green"></span> {t('cashOnDelivery')}
               </label>
             </div>

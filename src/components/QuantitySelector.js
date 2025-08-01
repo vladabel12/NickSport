@@ -7,7 +7,7 @@ function QuantitySelector({ onChange }) {
     const value = e.target.value;
     if (value === "" || (/^\d+$/.test(value) && parseInt(value) > 0)) {
       setQuantity(value);
-      onChange(value); // передаємо в батьківський компонент
+      onChange(value);
     }
   };
 
@@ -29,12 +29,7 @@ function QuantitySelector({ onChange }) {
   return (
     <div className="quantity-controls">
       <button onClick={decrease}>−</button>
-      <input
-        type="number"
-        value={quantity}
-        min="1"
-        onChange={handleQuantityChange}
-      />
+      <input type="number" value={quantity} min="1" onChange={handleQuantityChange}/>
       <button onClick={increase}>+</button>
     </div>
   );
