@@ -2,6 +2,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import AddProductForm from './components/AddProductForm';
+import Item from './components/Item';
 
 const resources = {
   en: {
@@ -149,6 +150,27 @@ const resources = {
       Add: "Add",
       AddProduct: "Add Product",
       CloseForm: "Close Form",
+      ConfirmationofProductDeletion: "Do you really want to delete this product?",
+      ItemDeleted: "Product deleted!",
+      ErrorDeletingItem: "Error deleting product",
+      MistakeImgBB: "ImgBB error",
+      Error: "Error",
+      UnableImageUpload: "Unable to upload image",
+      ProductAdded: "Product added!",
+      ErrorAdding: "Error adding product",
+      ShortDescUkr: "Short description (UA)",
+      ShortDescEng: "Short description (EN)",
+      ShortDescRus: "Short description (RU)",
+      FullDescUkr: "Full description (UA)",
+      FullDescEng: "Full description (EN)",
+      FullDescRus: "Full description (RU)",
+      Price: "Price",
+      Code: "Product code",
+      URLImage: "Image URL",
+      ChooseCategory: "-- Choose a category --",
+      ChooseSubcategory: "-- Choose a subcategory --",
+      AddProductFormTitle: "Add Product",
+      Loading: "Loading..."
 
     }
   },
@@ -297,6 +319,27 @@ const resources = {
       Add: "Додати",
       AddProduct: "Додати товар",
       CloseForm: "Закрити форму",
+      ConfirmationofProductDeletion: "Ви дійсно хочете видалити цей товар?",
+      ItemDeleted: "Товар видалено!",
+      ErrorDeletingItem: "Помилка видалення",
+      MistakeImgBB: "Помилка ImgBB",
+      Error: "Помилка",
+      UnableImageUpload: "Не вдалося завантажити зображення",
+      ProductAdded: "Товар додано!",
+      ErrorAdding: "Помилка додавання",
+      ShortDescUkr: "Короткий опис (UA)",
+      ShortDescEng: "Короткий опис (EN)",
+      ShortDescRus: "Короткий опис (RU)",
+      FullDescUkr: "Повний опис (UA)",
+      FullDescEng: "Повний опис (EN)",
+      FullDescRus: "Повний опис (RU)",
+      Price: "Ціна",
+      Code: "Код товару",
+      URLImage: "URL зображення",
+      ChooseCategory: "-- Виберіть категорію --",
+      ChooseSubcategory: "-- Виберіть підкатегорію --",
+      AddProductFormTitle: "Додати товар",
+      Loading: "Завантаження...",
     }
   },
   ru: {
@@ -436,6 +479,28 @@ const resources = {
       Add: "Добавить",
       AddProduct: "Добавить товар",
       CloseForm: "Закрыть форму",
+      ConfirmationofProductDeletion: "Вы действительно хотите удалить этот товар?",
+      ItemDeleted: "Товар удален!",
+      ErrorDeletingItem: "Ошибка удаления товара",
+      MistakeImgBB: "Ошибка ImgBB",
+      Error: "Ошибка",
+      UnableImageUpload: "Не удалось загрузить изображение",
+      ProductAdded: "Товар добавлен!",
+      ErrorAdding: "Ошибка при добавлении товара",
+      ShortDescUkr: "Краткое описание (UA)",
+      ShortDescEng: "Краткое описание (EN)",
+      ShortDescRus: "Краткое описание (RU)",
+      FullDescUkr: "Полное описание (UA)",
+      FullDescEng: "Полное описание (EN)",
+      FullDescRus: "Полное описание (RU)",
+      Price: "Цена",
+      Code: "Код товара",
+      URLImage: "URL изображения",
+      ChooseCategory: "-- Выберите категорию --",
+      ChooseSubcategory: "-- Выберите подкатегорию --",
+      AddProductFormTitle: "Добавить товар",
+      Loading: "Загрузка...",
+      
     }
   }
 };

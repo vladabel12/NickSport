@@ -56,9 +56,9 @@ b, .full-item b {
 }
 .add-to-cart.added,
 .full-item .add-to-cart.added {
-  background: #a3a3a3; /* Сірий */
+  background: #a3a3a3;
   pointer-events: none;
-  transform: none; /* вимкнути ефект збільшення */
+  transform: none; 
 }
 
 .quantity-controls {

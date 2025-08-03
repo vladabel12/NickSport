@@ -41,35 +41,26 @@ function App() {
   const { t } = useTranslation();
 
   const deleteProduct = async (id) => {
-    if (!window.confirm("Видалити цей товар?")) return;
-    try {
-      await deleteDoc(doc(db, "products", id));
-      alert("✅ Товар видалено!");
-    } catch (err) {
-      alert("❌ Помилка видалення");
-      console.error(err);
-    }
-
     confirmAlert({
-      title: 'Підтвердження видалення',
-      message: 'Ви дійсно хочете видалити цей товар?',
+      title: (t('ConfirmationOfDeletionTitle')),
+      message: (t('ConfirmationofProductDeletion')),
       buttons: [
         {
-          label: 'Так',
+          label: (t('yes')),
           onClick: async () => {
             try {
               await deleteDoc(doc(db, "products", id));
-              toast.success("Товар видалено!");
+              toast.success(t('ItemDeleted'));
             } catch (err) {
-              toast.error("Помилка видалення");
+              toast.error(t('ErrorDeletingItem'));
               console.error(err);
             }
           }
         },
         {
-          label: 'Скасувати',
+          label: (t('cancel')),
           onClick: () => {
-            toast.info("Видалення скасовано");
+            toast.info(t('DeletionCanceled'));
           }
         }
       ]

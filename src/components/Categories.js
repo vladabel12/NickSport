@@ -7,7 +7,6 @@ import { collection, onSnapshot, deleteDoc, doc, updateDoc } from 'firebase/fire
 import AddCategoryForm from './AddCategoryForm';
 import { FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
