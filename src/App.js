@@ -162,14 +162,18 @@ function App() {
         <Header orders={orders} onDelete={deleteOrder} />
         <Routes>
           <Route path="/" element={ <>
-            <div className={`main_buttons ${user?.email === "skhool2205@gmail.com" ? "admin-layout" : "user-layout"}`}> {user?.email === "skhool2205@gmail.com" && (
-              <div className="inside_main_buttons">
-                <button className="categories-button add_product_button" onClick={() => setShowAddForm(prev => !prev)}> {showAddForm ? t('CloseForm') : t('AddProduct')}</button>
-                <Categories chooseCategory={chooseCategory} />
-              </div>
+            <div className={`main_buttons ${user?.email === "skhool2205@gmail.com" ? "admin-layout" : "user-layout"}`}>
+              {user?.email === "skhool2205@gmail.com" && (
+                <div className="inside_main_buttons">
+                  <button className="categories-button add_product_button" onClick={() => setShowAddForm(prev => !prev)}>
+                    {showAddForm ? t('CloseForm') : t('AddProduct')}
+                  </button>
+                </div>
               )}
-              <SearchBar onSearch={setSearchTerm} />
-            </div>
+          <Categories chooseCategory={chooseCategory} />
+          <SearchBar onSearch={setSearchTerm} />
+          </div>
+
             {showAddForm && <AddProductForm onClose={() => setShowAddForm(false)} />}
             <Items onShowItem={onShowItem} items={visibleItems} onAdd={addToOrder} onDelete={deleteProduct} isAdmin={user?.email === "skhool2205@gmail.com"}/>
             <div className="pagination">
