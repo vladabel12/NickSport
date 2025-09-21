@@ -28,6 +28,7 @@ import SearchBar from "./components/SearchBar";
 
 
 function App() {
+  const [editItem, setEditItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [items, setItems] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -174,8 +175,8 @@ function App() {
           <SearchBar onSearch={setSearchTerm} />
           </div>
 
-            {showAddForm && <AddProductForm onClose={() => setShowAddForm(false)} />}
-            <Items onShowItem={onShowItem} items={visibleItems} onAdd={addToOrder} onDelete={deleteProduct} isAdmin={user?.email === "skhool2205@gmail.com"}/>
+            {showAddForm && ( <AddProductForm onClose={() => { setShowAddForm(false); setEditItem(null); }} existingItem={editItem} />)}
+            <Items onShowItem={onShowItem} items={visibleItems} onAdd={addToOrder} onDelete={deleteProduct} onEdit={(item) => { setEditItem(item); setShowAddForm(true); }} isAdmin={user?.email === "skhool2205@gmail.com"}/>
             <div className="pagination">
               <button className="pagination_button" onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}> {t('prev')}</button>
               <span className="pagination_page_of">{t('page')} {currentPage} {t('of')} {totalPages}</span>

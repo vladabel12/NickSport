@@ -24,7 +24,7 @@
     margin-right: 20rem;
     display: flex;
     justify-content: flex-end;
-    gap: 25rem;
+    gap: 17rem;
     align-items: center;
 }
 h3{
@@ -99,6 +99,17 @@ b, .full-item b {
   -webkit-appearance: none;
   margin: 0;
 }
+.admin-icons {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon{
+  font-size: 18rem;
+  color: #232e3b;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
 .delete-icon {
   font-size: 18rem;
   color: #ca5252;
@@ -109,6 +120,10 @@ b, .full-item b {
 .delete-icon:hover {
   transform: scale(1.2);
   color: #ff0000;
+}
+.edit-icon:hover {
+  transform: scale(1.2);
+  color: #68875d;
 }
 .main_items{
   display: flex;

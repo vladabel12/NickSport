@@ -170,7 +170,10 @@ const resources = {
       ChooseCategory: "-- Choose a category --",
       ChooseSubcategory: "-- Choose a subcategory --",
       AddProductFormTitle: "Add Product",
-      Loading: "Loading..."
+      Loading: "Loading...",
+      UnableImageUpload: "Unable to upload image",
+      ErrorAdding: "Error adding product",
+      ProductUpdated: "Product updated",
 
     }
   },
@@ -340,6 +343,9 @@ const resources = {
       ChooseSubcategory: "-- Виберіть підкатегорію --",
       AddProductFormTitle: "Додати товар",
       Loading: "Завантаження...",
+      UnableImageUpload: "Не вдалося завантажити зображення",
+      ErrorAdding: "Помилка додавання",
+      ProductUpdated: "Товар оновлено",
     }
   },
   ru: {
@@ -500,6 +506,9 @@ const resources = {
       ChooseSubcategory: "-- Выберите подкатегорию --",
       AddProductFormTitle: "Добавить товар",
       Loading: "Загрузка...",
+      UnableImageUpload: "Не удалось загрузить изображение",
+      ErrorAdding: "Ошибка при добавлении товара",
+      ProductUpdated: "Товар обновлен",
       
     }
   }

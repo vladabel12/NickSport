@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaEdit } from 'react-icons/fa';
 import QuantitySelector from './QuantitySelector';
 import { useTranslation } from 'react-i18next';
 
-function Item({ item, onAdd, onShowItem, onDelete, isAdmin }) {
+function Item({ item, onAdd, onEdit, onShowItem, onDelete, isAdmin }) {
   const [added, setAdded] = useState(false);
   const { t, i18n } = useTranslation();
   const [quantity, setQuantity] = useState("1");
@@ -35,7 +35,10 @@ function Item({ item, onAdd, onShowItem, onDelete, isAdmin }) {
         <QuantitySelector onChange={setQuantity} />
         <div className={`add-to-cart ${added ? 'added' : ''}`} onClick={handleAdd}>{added ? t('added') : t('buy')}</div>
         {isAdmin && (
-          <FaTrash className="delete-icon" onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}/>
+          <div className="admin-icons">
+            <FaEdit className="edit-icon" onClick={(e) => { e.stopPropagation(); onEdit(item); window.scrollTo({ top: 500, behavior: "smooth" });}} />
+            <FaTrash className="delete-icon" onClick={(e) => { e.stopPropagation(); onDelete(item.id); }} />
+          </div>
         )}
       </div>
     </div>

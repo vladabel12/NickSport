@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify'; 
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
-function AddProductForm({ onClose }) {
+function AddProductForm({ onClose, existingItem }) {
   const { t } = useTranslation();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState(existingItem || {
     name_ua: '',
     name_en: '',
     name_ru: '',
     short_desc_ua: '',
     short_desc_en: '',
+    short_desc_ru: '',
     full_desc_ua: '',
     full_desc_en: '',
     full_desc_ru: '',
@@ -22,6 +23,12 @@ function AddProductForm({ onClose }) {
     subcategory: '',
     image: ''
   });
+
+  useEffect(() => {
+    if (existingItem) {
+      setForm(existingItem);
+    }
+  }, [existingItem]);
 
   const [categories, setCategories] = useState([]);
   const [file, setFile] = useState(null);
@@ -72,7 +79,7 @@ function AddProductForm({ onClose }) {
       }
     } catch (err) {
       setUploading(false);
-      console.error((t('Error')), err);
+      console.error(t('Error'), err);
       return null;
     }
   };
@@ -92,33 +99,23 @@ function AddProductForm({ onClose }) {
         }
       }
 
-      await addDoc(collection(db, 'products'), {
-        ...form,
-        category: form.category,
-        subcategory: form.subcategory,
-        image: imageUrl,
-        price: parseFloat(form.price),
-        createdAt: new Date()
-      });
-
-      toast.success(t('ProductAdded'));
-      setForm({
-        name_ua: '',
-        name_en: '',
-        name_ru: '',
-        short_desc_ua: '',
-        short_desc_en: '',
-        short_desc_ru: '',
-        full_desc_ua: '',
-        full_desc_en: '',
-        full_desc_ru: '',
-        price: '',
-        code: '',
-        category: '',
-        subcategory: '',
-        image: ''
-      });
-      setFile(null);
+      if (existingItem) {
+        const productRef = doc(db, 'products', existingItem.id);
+        await updateDoc(productRef, {
+          ...form,
+          image: imageUrl,
+          price: parseFloat(form.price)
+        });
+        toast.success(t('ProductUpdated'));
+      } else {
+        await addDoc(collection(db, 'products'), {
+          ...form,
+          image: imageUrl,
+          price: parseFloat(form.price),
+          createdAt: new Date()
+        });
+        toast.success(t('ProductAdded'));
+      }
 
       if (onClose) onClose();
     } catch (error) {
@@ -157,7 +154,7 @@ function AddProductForm({ onClose }) {
       {form.category && (
         <select name="subcategory" value={form.subcategory} onChange={handleChange} required className='add_products_category'>
           <option value="">{t('ChooseSubcategory')}</option>
-            {categories .find((cat) => cat.key === form.category) ?.subcategories?.map((sub) => (
+            {categories.find((cat) => cat.key === form.category)?.subcategories?.map((sub) => (
               <option key={sub.key} value={sub.key}>
                 {sub[`name_${i18n.language}`] || sub.name_ua}
               </option>
@@ -165,10 +162,9 @@ function AddProductForm({ onClose }) {
         </select>
       )}
 
-
       <div className='add_products'>
         <button type="submit" disabled={uploading} className='add_button'>
-          {uploading ? (t('Loading')) : (t('AddProductFormTitle'))}
+          {uploading ? t('Loading') : t('AddProductFormTitle')}
         </button>
       </div>
     </form>
@@ -176,3 +172,4 @@ function AddProductForm({ onClose }) {
 }
 
 export default AddProductForm;
+
